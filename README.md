@@ -10,8 +10,8 @@ e anche altra gente) che avessero voglia di trappolare con i sorgenti delle disp
 Se volete semplicemente il materiale del corso già compilato in PDF, oltre alla virtual machine per fare gli esperimenti
 in Assembly, ecc. ecc. andate direttamente sul [sito del corso][1].
 
-Motivazione
------------
+Motivazione di un repository
+----------------------------
 
 Non so esattamente se questa cosa possa servire o meno, ma mi sono detto "Perché no?". Per non parlare del fatto che
 volevo settarmi un GIT per mantenere tutte le robe nella rete di università, solo che settare la VPN e tutte queste
