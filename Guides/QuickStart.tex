@@ -47,32 +47,107 @@
 		per non parlare del fatto che potrebbe essere una palla per voi, visto che
 		potrebbe andare a cozzare con altre lezioni.
 		
-	\section*{Oh, aspetta un secondo}
+	\section*{Oh, aspetta un secondo!}
 	
 		Quello che è scritto in questi documenti è tutto frutto della mia mente,
 		prodotto in momenti di alti e bassi caffeinici, intervallati dalla scrittura
 		di codice a basso livello per simulazioni fisiche o studi sull'interazione
 		uomo-macchina.
 		
-		Potrei aver scritto minchiate, fatto errori grammaticali, ecc. Ma la cosa più
+		A causa di questa instabilità potrei aver scritto minchiate, fatto errori
+		grammaticali, ecc. Ma la cosa più
 		importante è che le opinioni espresse nei miei documenti non riflettono
 		necessariamente quelle del professore o dell'università.
-		
-		Quindi se impreco in giro per i documenti non andate a rompere le balle in giro,
-		venite direttamente da me.
 
 \chapter{Let's rock!}
-adsf
 
-\begin{Verbatim}[label=test]
-\renewcommand\chapterheadstart{\vspace*{\beforechapskip}}
-\renewcommand\printchaptername{\chapnamefont \@chapapp}
-\renewcommand\chapternamenum{\space}
-\renewcommand\printchapternum{\chapnumfont \thechapter}
-\renewcommand\afterchapternum{\par\nobreak\vskip \midchapskip}
-\renewcommand\printchapternonum{}
-\renewcommand\printchaptertitle[1]{\chaptitlefont #1}
-\renewcommand\afterchaptertitle{\par\nobreak\vskip \afterchapskip}
-\end{Verbatim}
+	Siccome il corso prevede un bel po' di ore di studio ed esercizi su Assembly x86\_{}64
+	(l'assembly per processori a 64bit), abbiamo deciso di fornirvi di una virtual
+	machine per fare tutti i test che volete senza spaccarvi troppo la testa a settare
+	i vostri sistemi operativi per compilare software in assembly.
+	
+	Ora, questa cosa sarebbe una cazzata su delle macchine che fanno girare Linux, visto
+	che basta installare \texttt{gcc}, \texttt{gdb} ed altre cosucce ed è fatta, del tipo...
+	
+	\begin{Verbatim}[label=È tutto più semplice con linux quando si parla di programmazione]
+$ sudo apt-get install build-essential gdb
+	\end{Verbatim}
+	%$
+	
+	...solo che su altri sistemi (i.e. Windows, MacOS) la cosa non è così semplice\footnote{Dannato
+	MacOSX, quante bestemmie mi fai tirare ogni volta che ti accendo.}.
+	
+	Installare VirtualBox\footnote{\url{https://www.virtualbox.org/}} e far partire una macchina
+	virtuale con Ubuntu Linux 12.10 Server edition
+	a 64bit, invece, è più semplice e vi da molta più libertà di fare casini, visto che, al massimo,
+	vi basta riscaricare l'immagine dal mio sito e ripartire da zero.
+	
+	Ed ora arriva il bello (brutto?): a causa delle limitate potenze delle macchine virtuali
+	(o, se volete, a causa dell'enorme potenza buttata per simulare un sistema che la vostra macchina
+	non è, anche se è un sistema a 64bit fatto girare in un sistema a 64bit) il sistema
+	operativo che vi sto fornendo NON ha un'interfaccia grafica, quindi faremo come se fosse il 1990.
+	
+	Oddio, con zshell estesa, gcc 4.7, vim con syntax highlight, supporto per il mouse ed altre cose
+	che ora non ricordo, però senza interfaccina figa, tipo \ref{img:QSCoolInt}. Magari sarà un casino
+	all'inizio, ma vi assicuro che ci prenderete la mano. Inoltre avere un sistema virtuale che parte
+	in meno di dieci secondi non è male.
+	
+	\image{Images/QS_CoolInterfaceExample.png}{Uno screenshot del mio sistema operativo: %
+	parlo tanto ma, alla fine, non farei mai a meno dell'interfaccia grafica. Non siamo mica ai tempi del %
+	DOS, cazzo.}{0.8}{img:QSCoolInt}
+	
+	E, detto questo, partiamo.
+	
+	\section{Installate VirtualBox e scaricate l'immagine del sistema dal mio sito}
+	
+		Fatto? Bene.
+		
+	\section{Aggiungete la macchina alla lista e preparatela per l'utilizzo}
+		
+		OK, minchiate a parte, passiamo ad aggiungere la virtual machine e farla partire. Aprite il programma
+		ed andate sotto \texttt{File->Import Appliance...}, selezionate \texttt{Open Appliance...}.
+		
+		Selezionate il file \texttt{.ova} scaricato dal sito ed andate avanti. Dovreste raggiungere
+		una schermata simile a questa \ref{img:VBfirst}. Lasciate così com'è e premete su \texttt{Import}.
+		
+		\image{Images/VBfirst.png}{Per sapere perché la macchina virtuale si chima \emph{OZ-06MS Leo}, guardate %
+		su \url{http://tvtropes.org/pmwiki/pmwiki.php/Main/MadeOfExplodium} sotto anime oppure su %
+		\url{http://gundam.wikia.com/wiki/OZ-06MS_Leo}. Non prendetelo troppo sul serio (Also: LOL, GUNDAM).}{0.8}{img:VBfirst} 
+		
+		Fatto questo avrete una macchina virtuale nella lista. Ora potete aggiungere delle cartelle condivise
+		tra la macchina virtuale e la vostra macchina. Per fare questo andate su \texttt{Settings}, quindi
+		\texttt{Shared Folders}. Se arrivano messaggi sull'accesso delle USB... Lasciate stare, le Shared
+		Folders sono più comode.
+		
+		Comunque, una volta quì aggiungete quante cartelle condivise volete. Vi spiegherò poi come accedervi.
+		
+	\section{Primi passi in giro per il sistema}
+	
+		Facciamo partire 'sta macchina e ``Let's have a grand ol' time''! :D
+	
+		Dovreste arrivare ad una schermata tipo questa entro poco tempo...
+		
+		\begin{Verbatim}[label=Login + Password]
+Ubuntu 12.10 OZ-06MS Leo tty1
+OZ-06MS Leo Login: cortana
+Password: motherfuckingspace
+		\end{Verbatim}
 
+		Non scherzo, quelli sono veramente username e password\footnote{Tra l'altro il sistema non vi mostrerà
+		nulla durante l'inserimento della password per... Sicurezza, immagino.}.
+		
+		Se avete fatto tutto correttamente dovreste trovarvi nel sistema:
+
+		\begin{Verbatim}[label=Party like it's 1990!]
+Welcome back, time to do some bloody
+ ____   ____ ___ _____ _   _  ____ _____ _ 
+/ ___| / ___|_ _| ____| \ | |/ ___| ____| |
+\___ \| |    | ||  _| |  \| | |   |  _| | |
+ ___) | |___ | || |___| |\  | |___| |___|_|
+|____/ \____|___|_____|_| \_|\____|_____(_)
+
+cortana at OZ-06MS in ~
+$ 
+		\end{Verbatim}
+%$
 \end{document}
