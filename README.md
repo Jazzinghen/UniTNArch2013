@@ -31,6 +31,6 @@ Other Stuff
 -----------
 
 This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
-To view a copy of this license, visit [http://creativecommons.org/licenses/by-sa/3.0/].
+To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/
 
 [1]: http://brenta.disi.unitn.it/~bianchi/Arch2013/ "QUEL SITO LÌ :3"
