@@ -233,7 +233,8 @@ Do you want to continue [Y/n]? n
         Non starò qui a spiegarvi tutto sull'editor perché ci vorrebbe l'intero corso, perciò il consiglio è sempre
         quello di chiedere a Google-sensei\footnote{Partite da \url{http://www.swaroopch.com/notes/Vim_en-Table_of_Contents/}}
         e che, per scrivere, si preme \texttt{i}, per salvare si fa \texttt{[ESC] -> :w}, per uscire \texttt{[ESC] -> :q} 
-        e per salvare ed uscire \texttt{[ESC] -> :x}.
+        e per salvare ed uscire \texttt{[ESC] -> :x}\footnote{Per motivi a me ancora oscuri non scrive nulla su disco
+        se non avete cambiato il file. Mah.}.
         
 	\section{Ma torniamo a fare la prima prova}
 		
@@ -252,5 +253,75 @@ int main (int argc, char **argv){
 		
 		Ecco, come avrete già visto, questo è lo scheletro di un programma in C. Ci sono le librerie base incluse,
 		c'è il main, ecc. ecc.
+		
+		Allora, fate \texttt{[ESC] :wq} e tornerete alla shell.
+		
+		Ora compiliamo questo dannato programma.
+		
+		\begin{Verbatim}[label={Compilazione, HO!}]
+cortana at OZ-06MS in ~
+$ gcc -o test test.c
+		\end{Verbatim}
+%$
+		
+		Non so se avete già visto questi comandi, comunque quello che fa è compilare il programma contenuto in \texttt{test.c},
+		generando un file eseguibile chiamato \texttt{test}. Se chiamaste \texttt{gcc} omettendo l'opzione \texttt{-o}
+		il file di output sarebbe un eseguibile chiamato \texttt{a.out}.
+		
+		Eseguendo il programma l'output è il seguente:
+		
+		\begin{Verbatim}[label={Hello, World.}]
+cortana at OZ-06MS in ~
+$ ./test
+Well, that was easy.
+		\end{Verbatim}
+%$
+		
+		``And badabim, badaboom, the program was compiled.''
+		
+		La stessa cosa si può fare con assembly...
+		
+		\begin{Verbatim}[label={Holy Assembly, Batman!}]
+cortana at OZ-06MS in ~
+$ vim test.s
+		\end{Verbatim}
+%$
+		
+		Ora usiamo \texttt{binutils} per compilare questa specie di ``Hello, World!'' in Assembly x86\_64:
+		
+		\begin{Verbatim}[label={Prima assembliamo, poi linkiamo...}]
+cortana at OZ-06MS in ~
+$ as test.s -o test.o
 
+cortana at OZ-06MS in ~
+$ ld test.o -o test
+		\end{Verbatim}
+%$
+
+		Poi testiamo...
+		
+		\begin{Verbatim}[label={Ma qualcuno li legge questi titoli?}]
+cortana at OZ-06MS in ~
+$ ./test
+
+cortana at OZ-06MS in ~
+$ echo $?
+0
+		\end{Verbatim}
+%$
+		0 è la risposta giusta. Se volete testare potete modificare il codice Assembly per cambiare il numero
+		restituito dal programma. Provare per credere XD
+		
+	\section{Spegnere la macchina virtuale}
+		
+		Una volta che avete fatto tutto quello che dovete salvate, arrivate alla shell e o usate \texttt{Machine -> ACPI Shutdown}
+		oppure scrivete:
+		
+		\begin{Verbatim}[label={Ma qualcuno li legge questi titoli?}]
+cortana at OZ-06MS in ~
+$ sudo shutdown -h now
+		\end{Verbatim}
+%$		
+
+		Et voilà, macchina spenta :D
 \end{document}
