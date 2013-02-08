@@ -164,6 +164,92 @@ $ Linux OZ-06MSLeo 3.5.0-22-generic #34-Ubuntu SMP Tue Jan 8 21:47:00
 		\end{Verbatim}
 %$
 
-		Bien.
+		Bien. Se siamo arrivati a questo punto vuol dire che tutto va correttamente. Ora potete
+		rozzare in giro per il sistema ed abituarvi a lavorare su riga di comando\footnote{In caso vogliate un
+		crash course su come si lavora via riga di comando vi consiglierei di dare un occhiata a risorse online
+		tipo \url{http://cli.learncodethehardway.org/}. Ricordatevi sempre che Google-sensei è sempre lì pronto
+		a darvi una mano.}
+		
+	\section{Ok, ma io devo farci degli esercizi su questa macchina.}
+		
+		Esatto!
+		
+		È per quello che è stato installato tutto ciò che è necessario per scrivere codice in C ed in Assembly,
+        compilarlo e debuggarlo. Per iniziare a scrivere del codice aprite vim...
+        
+        \begin{Verbatim}[label={LOL, VIM}]
+cortana at OZ-06MS in ~
+$ vim test.c
+		\end{Verbatim}
+%$
+		
+		Ed ecco, sento già arrivare la flame war. Se qualcuno si chiedesse perché non ho installato \texttt{Emacs}
+		sulla macchina (\ref{img:YUNO}), provi a lanciare \texttt{df -h} e poi \texttt{sudo apt-get install emacs24-nox},
+		come dimostrato sotto:
+		
+		\begin{Verbatim}[label={Ecco, vedi che Michele è il solito estremista di VIM?}]
+cortana at OZ-06MS in ~
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       1.8G  1.4G  269M  85% /
+udev            237M  4.0K  237M   1% /dev
+tmpfs           128M     0  128M   0% /tmp
+tmpfs            99M  308K   98M   1% /run
+none            5.0M     0  5.0M   0% /run/lock
+none            246M     0  246M   0% /run/shm
+none            100M     0  100M   0% /run/user
+VB              283G   71G  213G  25% /media/sf_VB
+
+cortana at OZ-06MS in ~
+$ sudo apt-get install emacs24-nox
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  emacs24-bin-common emacs24-common emacs24-common-non-dfsg emacsen-common
+  libasound2 libxml2 sgml-base xml-core
+Suggested packages:
+  emacs24-el libasound2-plugins libasound2-python sgml-base-doc debhelper
+The following NEW packages will be installed
+  emacs24-bin-common emacs24-common emacs24-common-non-dfsg emacs24-nox
+  emacsen-common libasound2 libxml2 sgml-base xml-core
+0 upgraded, 9 newly installed, 0 to remove and 5 not upgraded.
+Need to get 28.9 MB of archives.
+After this operation, 87.4 MB of additional disk space will be used.
+Do you want to continue [Y/n]? n
+		\end{Verbatim}
+%$
+		
+		\image{Images/YUNOEmacs.jpg}{Memegenerator. Sigh. E pubblicizzano... IL NUOVO \href{http://www.4chan.org/}{4chan}! %
+			Ma che diavolo?}{0.5}{img:YUNO}
+        
+        Ok, scherzi a parte. Non c'è moltissimo spazio sulla macchina virtuale, perché ho provato a renderla
+        il più piccola/leggera possibile, fallendo miseramente e creando una macchina da 700MB. Se volete
+        installarlo potete, visto che occupa ``solo'' 88MB. Inoltre, per chi volesse c'è anche \texttt{nano}.
+        
+        A difesa di \texttt{VIM} devo dire che può fare un po' più di cose, tipo tabbed editing, splitting
+        ricorsivo delle finestre, chiamate dirette a comandi della shell, ecc. ecc.
+        
+        Non starò qui a spiegarvi tutto sull'editor perché ci vorrebbe l'intero corso, perciò il consiglio è sempre
+        quello di chiedere a Google-sensei\footnote{Partite da \url{http://www.swaroopch.com/notes/Vim_en-Table_of_Contents/}}
+        e che, per scrivere, si preme \texttt{i}, per salvare si fa \texttt{[ESC] -> :w}, per uscire \texttt{[ESC] -> :q} 
+        e per salvare ed uscire \texttt{[ESC] -> :x}.
+        
+	\section{Ma torniamo a fare la prima prova}
+		
+		Yeah. Allora, aperto \texttt{VIM} dovremmo già avere del testo, tipo:
+		
+	    \begin{Verbatim}[label={UNF, DAT syntax highlighting (dentro VIM)}]
+#include <stdlib.h>
+#include <stdio.h>    // I/O lib
+#include <stdint.h>   // Standard variable types
+
+int main (int argc, char **argv){
+    printf("Well, that was easy.\n");
+    return 0;
+}
+		\end{Verbatim}
+		
+		
 
 \end{document}
