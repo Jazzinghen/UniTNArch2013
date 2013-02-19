@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usetheme{Dresden}
+\usetheme{CambridgeUS}
 \usecolortheme{beaver}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -61,7 +61,8 @@
     			se ci sono casini metto a posto
     		\item Aggiungerò dei link a delle risorse online utili per il corso, dateci
     			un'occhiata ogni tanto. So che vi sentite dire questa cosa spesso, ma \st{a me%
-    			servono hit per prendere soldi} è utile, visto che ci sto ancora lavorando.
+    			servono hit per prendere soldi} nel mio caso vi potrebbe essere utile, visto
+    			che non ci sono ancora tutti i contenuti.
     \end{itemize}
   \end{frame}
 
@@ -69,18 +70,23 @@
 	\subsection{Storia della rappresentazione numerica}  
   \begin{frame}
     \frametitle{Storia}
+    \begin{itemize}
+    		\item Sistemi unari (dita, tacche, ideogrammi)
+    		\item Sistemi di numerazione additivi (Romani, Egizi)
+    		\item Sistemi letterali (e.g. \emph{Sixty nine}, \emph{Soixante dix-neuf}, \emph{Settantanove})
+    		\item Notazioni posizionali (Babilonesi [base60], Hindu-Arabic [base10])
+    \end{itemize}
     %Unari, Babilonesi, Romani, Posizioniali (indiani), Binaria
   \end{frame}
 	
 	\subsection{Basi numeriche informatiche}
   \begin{frame}
     \frametitle{Basi informatiche}
-    %Content goes here
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Basi informatiche}
-    %Content goes here
+    \begin{itemize}
+    		\item Base-2 (Binario): rappresentazione grezza delle linee logiche
+    		\item Base-8 (Ottale): rappresentazione di 3 bit (deprecato)
+    		\item Base-16 (Esadecimale): rappresentazione 4 bit (e.g. Colori per CSS)
+    \end{itemize}
   \end{frame}
 
 
@@ -88,27 +94,61 @@
 	\subsection{Rappresentazioni di base}  
   \begin{frame}
     \frametitle{Definizioni di base}    	
-    %More content goes here
+    \begin{itemize}
+    		\item Bit [0,1]: stato di una linea logica
+    		\item Byte [0,255]: 8 bit assieme (e.g. 1 carattere ASCII)
+    		\item Word [0,$2^{lunghezza}$]: numero variabile di byte a seconda del sistema (e.g. float da 4byte)
+    \end{itemize}
   \end{frame}
   \subsection{Standard Types}
   \begin{frame}   	
+    \begin{itemize}
+    		\item Integer (8, 16, 32, 64 bit)
+    			\begin{itemize}
+    				\item Unsigned: Da 0 a $2^{bit}-1$
+    				\item Signed: Da $-2^{bit-1}$ a $2^{bit-1}-1$
+    			\end{itemize}
+    		\item Float
+    			\begin{itemize}
+    				\item Single: $1.175494351e^{-38}$ a $3.402823466e^{38}$
+    				\item Double: $2.2250738585072014e^{-308}$ a $1.7976931348623158e^{308}$
+    				\item Quad (There is no kill like overkill): $3.362e^{-4932}$ a $1.20e^{4932}$
+    			\end{itemize}
+    \end{itemize}
+
+		\begin{block}{N.B.}
+			Per iniziare lavoreremo con i numeri naturali (interi positivi) a 8 bit. Ovvero da 0 a 255,
+			come se stessimo giocando a Final Fantasy VII.
+		\end{block}
     %Parlare dei vari tipi, aggiungere i limiti e dire che lavoreremo con gli unsigned.
-  \end{frame}
-  \begin{frame}  	
-    %More content goes here
   \end{frame}
   \subsection{Strutture dati complesse}
   \begin{frame}
     \frametitle{Strutture complesse}
-    %More content goes here
+    \begin{itemize}
+    		\item Testo: Sequenza di byte o, nel caso di sistemi moderni, di word da 8 a 32 bit (UTF-8)
+    		\item Immagini: Bitmap a profondità variabile (1, 8, 16, 24, 32 bit)
+    			\begin{itemize}
+    				\item 1 bit: Bianco e Nero
+    				\item 8 bit: 256 colori (NES! MSX2! :D Glorious Retrogaming)
+    				\item 16 bit: 65536 colori (SNES, Windows 95)
+    				\item 24 bit: 16 milioni di colori (Circa tutto adesso)
+    				\item 32 bit: 16 milioni di colori + Alpha Channel
+    			\end{itemize}
+    		\item Audio: Dati stereo codificati tramite Pulse Code Modulation (PCM)\footnote{Dannato PCM!}
+    \end{itemize}
   \end{frame} 
   
   \section[Conversion]{Conversione di Base}
   \subsection{Algoritmo di conversione}
   \begin{frame}
-    \frametitle{Algoritmo}
+    \frametitle{Conversione decimale in binario}
     %Content goes here
   \end{frame}
+	\begin{frame}
+    \frametitle{Conversione binario in decimale}
+    %Content goes here
+  \end{frame}  
   \subsection{Esempi}
   \begin{frame}
     \frametitle{Esempi}
