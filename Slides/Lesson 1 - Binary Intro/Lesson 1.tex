@@ -1,0 +1,176 @@
+\documentclass{beamer}
+\usetheme{Dresden}
+\usecolortheme{beaver}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{soul}
+
+\usepackage{fancyvrb}
+\definecolor{felinesrcbgcolor}{rgb}{1,1,0.85}
+\definecolor{felinesrcbgcolor}{rgb}{0.94,0.97,1}
+\definecolor{felineframe}{rgb}{0.79,0.88,1}
+\definecolor{myorange}{rgb}{1,0.375,0}
+\fvset{frame=lines,
+  framesep=3mm,
+  framerule=3pt,
+  fontsize=\small,
+  rulecolor=\color{myorange},
+  formatcom=\color{DarkGreen},
+}
+
+\hypersetup{
+	urlcolor=myorange
+}
+
+\title[Arch2013] % (optional, only for long titles)
+{Architettura degli elaboratori 2012/2013}
+\subtitle{Rappresentazione ed aritmetica binaria di base}
+\author{Michele ``Jazzinghen'' Bianchi\inst{1}}
+\institute[DISI] % (optional)
+{
+  \inst{1}%
+  Dipartimento di Ingegneria e Scienze dell'Informazione\\
+  Universtià degli Studi di Trento
+}
+\date[FEB 2013] % (optional)
+{21 Febbraio 2013}
+\subject{Computer Science, Embedded Systems}
+
+\begin{document}
+	\frame{\titlepage}
+	\section{Intro}
+	\begin{frame}
+    \frametitle{Introduzione}
+		\begin{itemize}
+			\item Contatti: \url{michele.bianchi@unitn.it}
+		  \item Sito web con i materiali: \url{http://disi.unitn.it/~bianchi}
+		  \item Ricevimento: scrivetemi una mail, così ci mettiamo d'accordo.
+		  \item Domande o parti poco chiare: Ovviamente sono qui per questo, quindi
+		    chiedete pure, altrimenti mandatemi le domande via mail, alle quali
+		    risponderò all'inizio della lezione successiva
+		\end{itemize}    
+   
+  \end{frame}
+  \begin{frame}
+    \frametitle{Introduzione}
+    \framesubtitle{Extra}
+    \begin{itemize}
+    		\item Sulla mia pagina è presente una Quick Start Guide per quanto riguarda
+    			la seconda parte del corso. Vi potrebbe essere utile leggerla subito, così
+    			se ci sono casini metto a posto
+    		\item Aggiungerò dei link a delle risorse online utili per il corso, dateci
+    			un'occhiata ogni tanto. So che vi sentite dire questa cosa spesso, ma \st{a me%
+    			servono hit per prendere soldi} è utile, visto che ci sto ancora lavorando.
+    \end{itemize}
+  \end{frame}
+
+  \section[AllYourBases...]{Sistemi numerici (Basi)}
+	\subsection{Storia della rappresentazione numerica}  
+  \begin{frame}
+    \frametitle{Storia}
+    %Unari, Babilonesi, Romani, Posizioniali (indiani), Binaria
+  \end{frame}
+	
+	\subsection{Basi numeriche informatiche}
+  \begin{frame}
+    \frametitle{Basi informatiche}
+    %Content goes here
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Basi informatiche}
+    %Content goes here
+  \end{frame}
+
+
+	\section[BinaryData]{Rappresentazione Binaria dei dati}
+	\subsection{Rappresentazioni di base}  
+  \begin{frame}
+    \frametitle{Definizioni di base}    	
+    %More content goes here
+  \end{frame}
+  \subsection{Standard Types}
+  \begin{frame}   	
+    %Parlare dei vari tipi, aggiungere i limiti e dire che lavoreremo con gli unsigned.
+  \end{frame}
+  \begin{frame}  	
+    %More content goes here
+  \end{frame}
+  \subsection{Strutture dati complesse}
+  \begin{frame}
+    \frametitle{Strutture complesse}
+    %More content goes here
+  \end{frame} 
+  
+  \section[Conversion]{Conversione di Base}
+  \subsection{Algoritmo di conversione}
+  \begin{frame}
+    \frametitle{Algoritmo}
+    %Content goes here
+  \end{frame}
+  \subsection{Esempi}
+  \begin{frame}
+    \frametitle{Esempi}
+    %Content goes here
+  \end{frame}
+  
+  \section[Operations]{Aritmetica dei naturali}
+	\subsection[NatSum]{Somma di Naturali}  
+	  \begin{frame}
+	    \frametitle{Somma di naturali}
+	    \framesubtitle{Un'introduzione, prima}
+	    %Content goes here
+	  \end{frame}
+	  \begin{frame}
+	    \frametitle{Somma di naturali}
+	    \framesubtitle{Esempi}
+	    %Content goes here
+	  \end{frame}
+  \subsection[NatSub]{Sottrazione di Naturali}  
+	  \begin{frame}
+	    \frametitle{Sottrazione di naturali}
+	    \framesubtitle{Operazione di base e ``Il prestito''}
+	    %Content goes here
+	  \end{frame}
+	  \begin{frame}
+	    \frametitle{Sottrazione di naturali}
+	    \framesubtitle{Esempi}
+	    %Content goes here
+	  \end{frame}
+	\subsection[NatMul]{Moltiplicazione di Naturali}  
+	  \begin{frame}
+	    \frametitle{Moltiplicazione di naturali}
+	    \framesubtitle{Moltiplicazione (e divisione) per potenze di due}
+	    %Content goes here
+	  \end{frame}
+	  \begin{frame}
+	    \frametitle{Moltiplicazione di naturali}
+	    \framesubtitle{Moltiplicazione tra due Naturali}
+	    %Content goes here
+	  \end{frame}
+		\begin{frame}
+	    \frametitle{Moltiplicazione di naturali}
+	    \framesubtitle{Esempi}
+	    %Content goes here
+	  \end{frame}
+	\subsection[Errors]{Error checking}
+		\begin{frame}
+	    \frametitle{Error Checking}
+	    \framesubtitle{Overflow/Underflow}
+	    %Overflow flag/bit
+	  \end{frame}
+  
+  \section[NegativeRep]{Aggiunta del segno negli interi}
+  \subsection{Segno-e-Modulo}
+  \begin{frame}
+    \frametitle{Rappresentazione in Segno-e-Modulo}
+    %Content goes here
+  \end{frame}
+  \subsection{Complemento a 2}
+  \begin{frame}
+    \frametitle{Complemento a 2}
+    %Complemento ad 1 sarebbe figo, ma ci sega un valore. Complemento a 2 (Cmpl1 + 1) rimuove il problema. 
+  \end{frame}
+% etc
+\end{document}
