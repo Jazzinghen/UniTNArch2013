@@ -302,7 +302,7 @@
 	  \begin{frame}
 	    \frametitle{Somma di naturali}
 	    \framesubtitle{Esempio}
-	    $$1110101_{2} + 1100001_{2} = \text{?}$$
+	    $$117_{10} + 97_{10} = 1110101_{2} + 1100001_{2} = \text{?}$$
 	    \vspace{2em}
 	    \pause
 			\begin{center}
@@ -347,7 +347,7 @@
 	  \begin{frame}
 	    \frametitle{Sottrazione di naturali}
 	    \framesubtitle{Esempio}
-	    $$11010110_{2} - 1110101_{2} = \text{?}$$
+	    $$214_{10} - 117_{10} = 11010110_{2} - 1110101_{2} = \text{?}$$
 	    \vspace{2em}
 	    \pause
 			\begin{center}
@@ -392,29 +392,134 @@
 	  \begin{frame}
 	    \frametitle{Moltiplicazione di naturali}
 	    \framesubtitle{Moltiplicazione tra due Naturali}
-	    %Content goes here
+	    Moltiplicare due numeri base-2 naturali altro non è che l'applicazione
+	    di shifting multipli e poi della somma sui risultati degli shifting.
+	    
+	    \vspace{2em}
+	    
+	    Alla fine non è differente dalla moltiplicazione in base-10, solo che è più
+	    semplice perché o bisogna sommare uno dei due moltiplicatori shiftati o nulla.
 	  \end{frame}
 		\begin{frame}
 	    \frametitle{Moltiplicazione di naturali}
-	    \framesubtitle{Esempi}
-	    %Content goes here
+	    \framesubtitle{Esempio}
+			
+			$$13_{10} x 17_{10} = 1101_{2} x 10001_{2} = \text{?}$$
+	    \vspace{1em}
+	    \pause	    
+	    \begin{center}
+	    \begin{tabular}{cccccccc||c}
+	      &   &   &   & 1 & 1 & 0 & 1 & x \\ 
+	      &   &   & 1 & 0 & 0 & 0 & 1 & = \\ 
+	    \hline 
+	      &   &   &   & 1 & 1 & 0 & 1 &  + \\ 
+	      &   &   &   &   &   & - &   &  + \\ 
+	      &   &   &   &   & - &   &   &  + \\ 
+	      &   &   &   & - &   &   &   &  + \\ 
+	    1 & 1 & 0 & 1 &   &   &   &   &   \\ 
+	    \hline 
+	    1 & 1 & 0 & 1 & 1 & 1 & 0 & 1 &   \\ 
+	    \end{tabular} 
+	    \end{center}
+	    
+	    \pause
+			\vspace{1em}
+			$$11011101_{2} = 221_{10}$$
 	  \end{frame}
 	\subsection[Errors]{Error checking}
 		\begin{frame}
 	    \frametitle{Error Checking}
 	    \framesubtitle{Overflow/Underflow}
-	    %Overflow flag/bit
+	    \begin{columns}
+			\column{.6\textwidth}	    
+			\footnotesize{
+	    Fino ad ora abbiamo sempre fatto calcoli pensando di avere cifre infinite a nostra disposizone.
+    
+	    ...
+	    
+	    Purtroppo, la realtà ci impone dei limiti di spazio, dettati
+	    dall'architettura di basso livello del calcolatore.
+	    
+	    A causa di questo si possono rischiare errori da semplicemente stupidi a catastrofici.
+	    
+	    \vspace{1em}
+	    \pause
+	    
+	    Tipo quello che è successo all'Ariane 5 501, missile Geostationary Transfer Orbit (GTO), progettato
+	    dalla Astrium per l'ESA. A causa di un errore di conversione e di mancato controllo degli Overflow
+	    la casa di produzione ha bruciato 370M\$ in circa 40 secondi.
+	    }
+	    \column{.4\textwidth}
+	    \begin{center}
+	    		\includegraphics[width=.9\textwidth]{IMGs/overflow.jpeg}
+	    \end{center}
+	    \end{columns}
 	  \end{frame}
+	  
+	\begin{frame}
+    \frametitle{Error Checking}
+    \framesubtitle{Overflow/Underflow cont.}
+    Possiamo immaginare i numeri in base-2 con una quantità limitata di cifre come se fossero posti
+    intorno ad una ruota:
+    
+    \begin{center}
+    \includegraphics[width=.5\textwidth]{IMGs/TheBurningWheel.png}
+    \end{center}
+
+  \end{frame}
+  
+  	\begin{frame}
+    \frametitle{Error Checking}
+    \framesubtitle{Overflow/Underflow cont.}
+    Nel caso precedente il numero è formato al massimo da 3 cifre binarie, quindi, se noi provassimo a
+    calcolare $111_{2} + 1_{2}$ il risultato dovrebbe essere $1000_{2}$, solo che non abbiamo abbastanza
+    cifre per contenere tutte le informazioni.
+    
+    Il risultato sarà quindi $000_{2}$. In pratica, $8_{10} + 1_{10} = 0_{10}$.
+    
+    \vspace{2em}
+    \pause
+    
+    Fortunatamente le ALU contengono delle flag che indicano se è avvenuto un overflow (o un underflow)
+    durante un'operazione aritmetica.
+  \end{frame}
   
   \section[NegativeRep]{Aggiunta del segno negli interi}
+  \begin{frame}
+  		\frametitle{Aggiungere il segno agli interi}
+  		Il supporto per i numeri negativi è stato aggiunto in vari modi\footnote{I quali dimezzano il
+  		numero massimo rappresentabile}:
+    \begin{itemize}
+    		\item \emph{Segno-e-Modulo}: Un bit fa da segno, gli altri sono il valore del numero
+    		\item \emph{Complemento ad 1}: Per avere il numero negativo invertiamo tutti i bit.
+    		\item \emph{Complemento a 2}: Facciamo il complemento ad 1 e poi sommiamo 1.
+    \end{itemize}
+  \end{frame}
   \subsection{Segno-e-Modulo}
   \begin{frame}
-    \frametitle{Rappresentazione in Segno-e-Modulo}
-    %Content goes here
+  		\frametitle{Aggiungere il segno agli interi}
+    \framesubtitle{Rappresentazione in Segno-e-Modulo}
+    
+    \begin{itemize}
+    		\item Più vicino (Anzi, esattamente IL) al metodo usato per la rappresentazione dei negativi nei float
+    		\item Permette l'esistenza di due 0: $+0$ e $-0$
+    		\item Richiede una logica più complessa per venir implementato.
+    \end{itemize}
   \end{frame}
   \subsection{Complemento a 2}
   \begin{frame}
-    \frametitle{Complemento a 2}
+  		\frametitle{Aggiungere il segno agli interi}
+    \framesubtitle{Complemento a 2}
+		Il complemento ad 1 è migliore del Segno-e-Modulo per gli interi, ma ha ancora dei problemi, tipo
+		il doppio $0$ oppure il fatto che è macchinoso a causa dell'offset di $-1$ dei numeri negativi.
+		
+		Per questo è stato inventato il complemento a 2:
+		
+		\begin{itemize}
+			\item Solo uno 0
+			\item Trasparente per somma, sottrazione e moltiplicazione
+			\item Per questo molto più facilmente implementabile a livello hardware
+		\end{itemize}		    
     %Complemento ad 1 sarebbe figo, ma ci sega un valore. Complemento a 2 (Cmpl1 + 1) rimuove il problema. 
   \end{frame}
 % etc
