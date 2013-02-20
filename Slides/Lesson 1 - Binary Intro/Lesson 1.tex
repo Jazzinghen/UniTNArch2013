@@ -5,6 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
 \usepackage{soul}
+\usepackage{graphicx}
+\usepackage{algorithm2e}
 
 \usepackage{fancyvrb}
 \definecolor{felinesrcbgcolor}{rgb}{1,1,0.85}
@@ -89,7 +91,6 @@
     \end{itemize}
   \end{frame}
 
-
 	\section[BinaryData]{Rappresentazione Binaria dei dati}
 	\subsection{Rappresentazioni di base}  
   \begin{frame}
@@ -97,7 +98,7 @@
     \begin{itemize}
     		\item Bit [0,1]: stato di una linea logica
     		\item Byte [0,255]: 8 bit assieme (e.g. 1 carattere ASCII)
-    		\item Word [0,$2^{lunghezza}$]: numero variabile di byte a seconda del sistema (e.g. float da 4byte)
+    		\item Word [0,$2^{bits}-1$]: numero variabile di byte a seconda del sistema (e.g. float da 4byte)
     \end{itemize}
   \end{frame}
   \subsection{Standard Types}
@@ -140,19 +141,136 @@
   \end{frame} 
   
   \section[Conversion]{Conversione di Base}
-  \subsection{Algoritmo di conversione}
+  \subsection{Metodi di conversione base-2 a base-10}
   \begin{frame}
-    \frametitle{Conversione decimale in binario}
-    %Content goes here
+  		\frametitle{Conversione base-10 a base-2}
+    \framesubtitle{Valore di un numero base-10}
+  		Un numero in base-10 è formato da unità, decine, centinaia, migl... blah blah.
+  		
+  		In pratica è la somma di multipli di potenze di 10, partendo da $10^0 = 1$
+  		
+  		Quindi, se prendiamo un numero tipo il $85500164_{10}$ avremo:
+  		
+  		\vspace{2em}
+  		\includegraphics[width=\textwidth]{IMGs/base-10read.png}
+    
   \end{frame}
-	\begin{frame}
-    \frametitle{Conversione binario in decimale}
-    %Content goes here
-  \end{frame}  
-  \subsection{Esempi}
   \begin{frame}
-    \frametitle{Esempi}
-    %Content goes here
+  		\frametitle{Conversione base-10 a base-2}
+    \framesubtitle{Valore di un numero base-2}
+  		Alla stessa maniera un numero base-2 è formato da unità, due, quattro, otto ed avanti così
+  		per potenze di 2.
+		
+		La conversione, quindi, da base-2 a base-10 è molto semplice, basta sommare le
+		potenze di 2 rappresentate dagli 1 e avremo così il numero in base-10.  		
+  		
+  		\vspace{2em}
+  		\includegraphics[width=\textwidth]{IMGs/base-2read.png}
+    
+  \end{frame}
+  \subsection{Metodi di conversione base-10 a base-2}
+	\begin{frame}
+    \frametitle{Conversione base-10 a base-2}
+    Ci sono due metodi per farlo:
+    \begin{itemize}
+    		\item \emph{Divisione e Modulo}: Continuare a dividere per due e mantenere il resto
+    		\item \emph{Sottrazione}: Testare se il numero è contenuto in un multiplo di due, se sì ve
+    			lo segnate da parte e poi lo sottraete dal numero e continuate così
+    \end{itemize}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Conversione base-10 a base-2}
+    \framesubtitle{Divisione e modulo}
+    \begin{itemize}
+    		\item Più facilmente implementabile
+    \end{itemize}
+    \begin{columns}
+    \column{.6\textwidth}
+    \footnotesize{
+    \begin{algorithm}[H]
+    		\SetAlgoLined
+			 \KwData{n: Numero base-10 da convertire}
+			 \KwResult{s: Numero convertito in base-2}
+			 s = stringa vuota\;			 
+			 \While{n>0}{
+			  s = (n mod 2) + s\; 
+			  n = n div 2\;
+			 }
+    \end{algorithm}
+		}
+	  \column{.4\textwidth}
+	 	\footnotesize{		
+			\pause
+	 		$$97_{10} = ??$$
+		  \pause
+			\begin{tabular}{|c|l|}
+			\hline
+			 n & s \\
+			\hline
+	     97 & \\
+	     48 & 1 \\
+	     24 & 01 \\
+	     12 & 001 \\
+	     6 & 0001 \\
+	     3 & 00001 \\
+	     1 & 100001 \\
+	     0 & 1100001 \\
+			\hline
+			\end{tabular}
+		  $$97_{10} = 1100001_{2}$$ 
+		}		
+	  \end{columns}
+		
+		
+  \end{frame}
+  \begin{frame}
+    \frametitle{Conversione base-10 a base-2}
+    \framesubtitle{Sottrazione}
+    \begin{itemize}
+    		\item Terribile se usato con numeri grandi
+    \end{itemize}
+	\begin{columns}
+  \column{.6\textwidth}
+    \footnotesize{
+    \begin{algorithm}[H]
+    		\SetAlgoLined
+			 \KwData{n: Numero base-10 da convertire}
+			 \KwResult{s: Numero convertito in base-2}
+			 s = stringa vuota\;
+			 i = massima potenza di due contenuta in n\;		 
+			 \Repeat{i=0}{
+			  \eIf{$i \leq n$}{
+			  		s = s + ``1''\; 
+			  		n = n - i\;
+			 }{
+			 		s = s + ``0''\;
+			 }
+			  i = i div 2\;
+			 }
+    \end{algorithm}
+	}
+  \column{.4\textwidth}
+ 	\footnotesize{		
+		\pause
+ 		$$117_{10} = ??$$
+	  \pause
+		\begin{tabular}{|c|c|l|}
+		\hline
+		 n & i & s \\
+		\hline
+     117 & 64 & \\
+     53 & 32 & 1 \\
+     21 & 16 & 11 \\
+     5 & 8 & 111 \\
+     5 & 4 & 1110 \\
+     1 & 2 & 11101 \\
+     1 & 1 & 111010 \\
+     0 & 0 & 1110101 \\
+		\hline
+		\end{tabular}
+	  $$117_{10} = 1110101_{2}$$ 
+	}		
+  \end{columns}
   \end{frame}
   
   \section[Operations]{Aritmetica dei naturali}
@@ -160,29 +278,116 @@
 	  \begin{frame}
 	    \frametitle{Somma di naturali}
 	    \framesubtitle{Un'introduzione, prima}
-	    %Content goes here
+			\begin{center}
+	    \begin{tabular}{|c|c|c||c|c|}
+	    		\hline
+	    			A & B & Carry & C & Carry \\
+	    		\hline
+	    			0 & 0 & 0 & 0 & 0 \\
+	    			1 & 0 & 0 & 1 & 0 \\
+	    			0 & 1 & 0 & 1 & 0 \\
+	    			1 & 1 & 0 & 0 & 1 \\
+	    			0 & 0 & 1 & 1 & 0 \\
+	    			1 & 0 & 1 & 0 & 1 \\
+	    			0 & 1 & 1 & 0 & 1 \\
+	    			1 & 1 & 1 & 1 & 1 \\
+	    		\hline
+	    \end{tabular}
+	    
+	    \vspace{2em}
+	    
+	    A + B + Carry = C + Carry
+	    \end{center}	  
 	  \end{frame}
 	  \begin{frame}
 	    \frametitle{Somma di naturali}
-	    \framesubtitle{Esempi}
-	    %Content goes here
+	    \framesubtitle{Esempio}
+	    $$1110101_{2} + 1100001_{2} = \text{?}$$
+	    \vspace{2em}
+	    \pause
+			\begin{center}
+			\begin{tabular}{cccccccc|c} 
+			 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & + \\  
+			 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & = \\ 
+			\hline 
+			1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 &  \\ 
+			\end{tabular}
+			\end{center}
+			\pause
+			\vspace{2em}
+			$$11010110_{2} = 214_{10}$$
 	  \end{frame}
   \subsection[NatSub]{Sottrazione di Naturali}  
 	  \begin{frame}
 	    \frametitle{Sottrazione di naturali}
 	    \framesubtitle{Operazione di base e ``Il prestito''}
-	    %Content goes here
+	    Come nella somma si va da destra a sinistra seguendo delle regole banali:
+			
+			\vspace{2em}	    
+	    
+	    \begin{center}
+		    \begin{tabular}{|c||c|c|c|c|}
+		    \hline 
+		    A & 0 & 1 & 1 & \textbf{0} \\ 
+		    \hline 
+		    B & 0 & 0 & 1 & \textbf{1} \\ 
+		    \hline 
+		    A-B & 0 & 1 & 0 & \textbf{1} \\ 
+		    \hline 
+		    \end{tabular}
+	    \end{center}
+	    
+	    \vspace{2em}
+	    
+	    Nell'ultimo caso bisogna scorrere a sinistra finchè
+	    non si trova un 1, invertendo il valore di tutte le cifre incontrate, 1 compreso.
+	    
+	    $$ 10..0 \rightarrow 01..1 $$
 	  \end{frame}
 	  \begin{frame}
 	    \frametitle{Sottrazione di naturali}
-	    \framesubtitle{Esempi}
-	    %Content goes here
+	    \framesubtitle{Esempio}
+	    $$11010110_{2} - 1110101_{2} = \text{?}$$
+	    \vspace{2em}
+	    \pause
+			\begin{center}
+			\begin{tabular}{cccccccc|c} 
+				1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 &	- \\		 
+			 		& 1 & 1 & 1 & 0 & 1 & 0 & 1 & = \\  
+			\hline			 
+			 & 1 & 1 & 0 & 0 & 0 & 0 & 1 &  \\ 
+			\end{tabular}
+			\end{center}
+			\pause
+			\vspace{2em}
+			$$1100001_{2} = 97_{10}$$
 	  \end{frame}
 	\subsection[NatMul]{Moltiplicazione di Naturali}  
 	  \begin{frame}
 	    \frametitle{Moltiplicazione di naturali}
 	    \framesubtitle{Moltiplicazione (e divisione) per potenze di due}
-	    %Content goes here
+	    Ok, se dobbiamo moltiplicare un numero base-10 per 10 dobbiamo...
+	    
+	    \pause
+	    
+	    \begin{center}
+		    Aggiungere uno 0 a destra.
+		    
+		    \includegraphics[width=.5\textwidth]{IMGs/youdontsay.png}
+	    \end{center}
+	    
+	  \end{frame}
+	  \begin{frame}
+	    \frametitle{Moltiplicazione di naturali}
+	    \framesubtitle{Moltiplicazione (e divisione) per potenze di due, cont.}
+	    Nel caso dei numeri base-2, aggiungere uno 0 a destra significa
+	    moltiplicare il numero per 2, mentre eliminando la prima cifra a
+	    desra significa dividere per 2.
+	    
+	    \vspace{2em}
+	    
+	    Questa operazione è chiamata shifting, utilizzata spesso dai compilatori
+	    per ottimizzare la moltiplicazione.
 	  \end{frame}
 	  \begin{frame}
 	    \frametitle{Moltiplicazione di naturali}
