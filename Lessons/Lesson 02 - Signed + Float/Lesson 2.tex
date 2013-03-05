@@ -7,6 +7,7 @@
 \usepackage{soul}
 \usepackage{graphicx}
 \usepackage{algorithm2e}
+\usepackage{multirow}
 
 \usepackage{fancyvrb}
 \definecolor{felinesrcbgcolor}{rgb}{1,1,0.85}
@@ -27,7 +28,7 @@
 
 \title[Arch2013] % (optional, only for long titles)
 {Architettura degli elaboratori 2012/2013}
-\subtitle{Rappresentazione ed aritmetica binaria di base}
+\subtitle{Aritmetica binaria: Signed, Fixed e Float}
 \author{Michele ``Jazzinghen'' Bianchi\inst{1}}
 \institute[DISI] % (optional)
 {
@@ -35,148 +36,181 @@
   Dipartimento di Ingegneria e Scienze dell'Informazione\\
   Universtià degli Studi di Trento
 }
-\date[FEB 2013] % (optional)
-{21 Febbraio 2013}
+\date[2013-03-06] % (optional)
+{06 Marzo 2013}
 \subject{Computer Science, Embedded Systems}
 
 \begin{document}
 	\frame{\titlepage}
-	\section{Intro}
+	\section{It's answer TIME!}
 	\begin{frame}
-    \frametitle{Introduzione}
+    \frametitle{Alcune cose prima d'iniziare}
+    \framesubtitle{Ve l'avevo detto che avrei risposto}
 		\begin{itemize}
-			\item Contatti: \url{michele.bianchi@unitn.it}
-		  \item Sito web con i materiali: \url{http://disi.unitn.it/~bianchi}
-		  \item Ricevimento: scrivetemi una mail, così ci mettiamo d'accordo.
-		  \item Domande o parti poco chiare: Ovviamente sono qui per questo, quindi
-		    chiedete pure, altrimenti mandatemi le domande via mail, alle quali
-		    risponderò all'inizio della lezione successiva
-		\end{itemize}    
+			\item La t-shirt che indossavo l'altra volta era di Think Geek: \url{http://www.thinkgeek.com/product/dae9/}\footnote{Quella
+				di oggi è di \url{http://www.redbubble.com/}}
+			\item Il mio sito web (quello con sopra la roba) è: \url{http://disi.unitn.it/~bianchi}. È fatto con
+				jQuery, PHP, HTML5 e CSS3.
+			\item La parte in assembly verrà fatta usando l'X86\_64.
+			\item GCC bara! La somma tra uint{8,16,32,64} ed int viene fatta attraverso magheggiamenti\footnote{Dettagli sul sito}!
+		\end{itemize}
+	\end{frame}   
    
-  \end{frame}
+  \section[Being negative]{Interi con il segno}
+	\subsection{Riassunto dell'ultima puntata}  
   \begin{frame}
-    \frametitle{Introduzione}
-    \framesubtitle{Extra}
+    \frametitle{Cos'è successo l'ultima volta?}
+		Abbiamo visto:    
     \begin{itemize}
-    		\item Sulla mia pagina è presente una Quick Start Guide per quanto riguarda
-    			la seconda parte del corso. Vi potrebbe essere utile leggerla subito, così
-    			se ci sono casini metto a posto
-    		\item Aggiungerò dei link a delle risorse online utili per il corso, dateci
-    			un'occhiata ogni tanto. So che vi sentite dire questa cosa spesso, ma \st{a me%
-    			servono hit per prendere soldi} nel mio caso vi potrebbe essere utile, visto
-    			che non ci sono ancora tutti i contenuti.
-    \end{itemize}
-  \end{frame}
-
-  \section[AllYourBases...]{Sistemi numerici (Basi)}
-	\subsection{Storia della rappresentazione numerica}  
-  \begin{frame}
-    \frametitle{Storia}
-    \begin{itemize}
-    		\item Sistemi unari (dita, tacche, ideogrammi)
-    		\item Sistemi di numerazione additivi (Romani, Egizi)
-    		\item Sistemi letterali (e.g. \emph{Sixty nine}, \emph{Soixante dix-neuf}, \emph{Settantanove})
-    		\item Notazioni posizionali (Babilonesi [base60], Hindu-Arabic [base10])
+    		\item Come sono stati rappresentati i numeri durante le ere
+    		\item Le varie strutture dati utilizzate dai computer
+    		\item Come passare da base-2 a base-10 ed il contrario
+    		\item L'aritmetica con i Naturali binari
+    		\item Come aggiungere il segno ai numeri binari
     \end{itemize}
     %Unari, Babilonesi, Romani, Posizioniali (indiani), Binaria
   \end{frame}
 	
-	\subsection{Basi numeriche informatiche}
+	\subsection{Somma / Sottrazione}
   \begin{frame}
-    \frametitle{Basi informatiche}
-    \begin{itemize}
-    		\item Base-2 (Binario): rappresentazione grezza delle linee logiche
-    		\item Base-8 (Ottale): rappresentazione di 3 bit (deprecato)
-    		\item Base-16 (Esadecimale): rappresentazione 4 bit (e.g. Colori per CSS)
-    \end{itemize}
+    \frametitle{Interi con il segno}
+    \framesubtitle{Somma e Sottrazione}
+    Le due operazioni sono la stessa cosa!
+    
+		\vspace{2em}    
+    
+    Grazie alla convenzione usata (Complemento-2) basta sommare due numeri signed, 
+    ignorando il bit di overflow, per avere il risultato.
+  \end{frame}
+  
+  \begin{frame}
+	    \frametitle{Somma e Sottrazione di interi}
+	    \framesubtitle{Esempio}
+	    $$117_{10} - 34_{10} = 01110101_{2} + 11011110_{2} = \text{?}$$
+	    \vspace{2em}
+	    \pause
+			\begin{center}
+			\begin{tabular}{cccccccc|c} 
+			 0 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & + \\  
+			 1 & 1 & 0 & 1 & 1 & 1 & 1 & 0 & = \\ 
+			\hline 
+			 0 & 1 & 0 & 1 & 0 & 0 & 1 & 1 &  \\ 
+			\end{tabular}
+			\end{center}
+			\pause
+			\vspace{2em}
+			$$01010011_{2} = 83_{10}$$
+	  \end{frame}
+
+	\subsection{Moltiplicazione signed}  
+  \begin{frame}
+    \frametitle{Moltiplicazione signed: Algoritmo di Booth}    	
+		Possiamo moltiplicare i signed come facevamo con gli unsigned,
+		solo che questo può richiedere una quantità di tempo impressionante.
+		
+		\vspace{2em}
+		
+		È per questo che utilizziamo un metodo creato da Andrew Donald Booth, che studiava,
+		ovviamente, cristallografia.
+		
+		\vspace{2em}
+		
+		Il processo utilizza un concetto molto semplice, ovvero che:
+		
+		$$01\text{...}1 = 10\text{...}0 - 1$$
+  \end{frame}
+  \begin{frame}
+    \frametitle{Moltiplicazione signed: Algoritmo di Booth}
+    \framesubtitle{L'algoritmo di Booth}
+    \begin{columns}
+    \column{.5\textwidth}
+    	  L'algoritmo è molto semplice.
+    	  
+    	  Si tratta di scorrere le cifre del secondo termine del
+    	  prodotto e guardare la cifra immediatamente a destra
+    	  (la prima cifra a destra è sempre 0).
+    	  
+			\vspace{2em}    	  
+    	  
+    	  In base a quale è la coppia bisognerà sommare o sottrarre
+    	  il primo termine del prodotto.
+    \column{.5\textwidth}
+    		\begin{center}
+			\begin{tabular}{|c||p{6em}|}
+				\hline				
+				Coppia di valori & Operazione \\
+				\hline
+				00 & \multirow{2}{*}{Nulla} \\
+				11 & \\
+				\hline				
+				10 & Sottrare il moltiplicando 	\\
+				\hline				
+				01 & Sommare il motiplicando 		\\
+				\hline 
+			\end{tabular}
+			\end{center}
+    \end{columns}
   \end{frame}
 
-	\section[BinaryData]{Rappresentazione Binaria dei dati}
-	\subsection{Rappresentazioni di base}  
   \begin{frame}
-    \frametitle{Definizioni di base}    	
-    \begin{itemize}
-    		\item Bit [0,1]: stato di una linea logica
-    		\item Byte [0,255]: 8 bit assieme (e.g. 1 carattere ASCII)
-    		\item Word [0,$2^{bits}-1$]: numero variabile di byte a seconda del sistema (e.g. float da 4byte)
-    \end{itemize}
-  \end{frame}
-  \subsection{Standard Types}
-  \begin{frame}   	
-    \begin{itemize}
-    		\item Integer (8, 16, 32, 64 bit)
-    			\begin{itemize}
-    				\item Unsigned: Da 0 a $2^{bit}-1$
-    				\item Signed: Da $-2^{bit-1}$ a $2^{bit-1}-1$
-    			\end{itemize}
-    		\item Float
-    			\begin{itemize}
-    				\item Single: $1.175494351e^{-38}$ a $3.402823466e^{38}$
-    				\item Double: $2.2250738585072014e^{-308}$ a $1.7976931348623158e^{308}$
-    				\item Quad (There is no kill like overkill): $3.362e^{-4932}$ a $1.20e^{4932}$
-    			\end{itemize}
-    \end{itemize}
-
-		\begin{block}{N.B.}
-			Per iniziare lavoreremo con i numeri naturali (interi positivi) a 8 bit. Ovvero da 0 a 255,
-			come se stessimo giocando a Final Fantasy VII.
-		\end{block}
-    %Parlare dei vari tipi, aggiungere i limiti e dire che lavoreremo con gli unsigned.
-  \end{frame}
-  \subsection{Strutture dati complesse}
-  \begin{frame}
-    \frametitle{Strutture complesse}
-    \begin{itemize}
-    		\item Testo: Sequenza di byte o, nel caso di sistemi moderni, di word da 8 a 32 bit (UTF-8)
-    		\item Immagini: Bitmap a profondità variabile (1, 8, 16, 24, 32 bit)
-    			\begin{itemize}
-    				\item 1 bit: Bianco e Nero
-    				\item 8 bit: 256 colori (NES! MSX2! :D Glorious Retrogaming)
-    				\item 16 bit: 65536 colori (SNES, Windows 95)
-    				\item 24 bit: 16 milioni di colori (Circa tutto adesso)
-    				\item 32 bit: 16 milioni di colori + Alpha Channel
-    			\end{itemize}
-    		\item Audio: Dati stereo codificati tramite Pulse Code Modulation (PCM)\footnote{Dannato PCM!}
-    \end{itemize}
+    \frametitle{Moltiplicazione signed: Algoritmo di Booth}
+    \framesubtitle{Esempio}
+    
   \end{frame} 
   
-  \section[Conversion]{Conversione di Base}
-  \subsection{Metodi di conversione base-2 a base-10}
+  \section[Fixed]{Numeri binari frazionari}
   \begin{frame}
-  		\frametitle{Conversione base-10 a base-2}
-    \framesubtitle{Valore di un numero base-10}
-  		Un numero in base-10 è formato da unità, decine, centinaia, migl... blah blah.
-  		
-  		In pratica è la somma di multipli di potenze di 10, partendo da $10^0 = 1$
-  		
-  		Quindi, se prendiamo un numero tipo il $85500164_{10}$ avremo:
+  		\frametitle{Un test}
+  		Ok, quanto è $11101.01001_{2}$ in base-10? (solo positivo)
   		
   		\vspace{2em}
-  		\includegraphics[width=\textwidth]{IMGs/base-10read.png}
-    
-  \end{frame}
-  \begin{frame}
-  		\frametitle{Conversione base-10 a base-2}
-    \framesubtitle{Valore di un numero base-2}
-  		Alla stessa maniera un numero base-2 è formato da unità, due, quattro, otto ed avanti così
-  		per potenze di 2.
+    \pause
+		\begin{center}
+		\begin{tabular}{ccccccccccc} 
+		 $2^4$ & $2^3$ & $2^2$ & $2^1$ & $2^0$ & . & $2^{-1}$ & $2^{-2}$ & $2^{-3}$ & $2^{-4}$ & $2^{-5}$ \\		 
+		 1 & 1 & 1 & 0 & 1 & . & 0 & 1 & 0 & 0 & 1 \\ 
+		\hline 
+		 16 & 8 & 4 & 0 & 1 & . & 0 & $1/4$ & 0 & 0 & $1/32$ \\ 
+		\end{tabular}
+		\end{center}
+		\pause
+		\vspace{2em}
 		
-		La conversione, quindi, da base-2 a base-10 è molto semplice, basta sommare le
-		potenze di 2 rappresentate dagli 1 e avremo così il numero in base-10.  		
+		$$11101.01001_{2} = 29_{10} + \frac{9}{32}_{10} = 29.28125_{10} $$
+  		
+  \end{frame}
+  \begin{frame}
+  		\frametitle{Numeri binari frazionari: Fixed Point}
+  		Funzionano come i numeri interi, solo che la parte a destra del "punto binario" è formata
+  		da potenze frazionarie di due (i.e. potenze negative di 2).
   		
   		\vspace{2em}
-  		\includegraphics[width=\textwidth]{IMGs/base-2read.png}
+  		
+  	  Tutte le operazioni sono come quelle che abbiamo visto per gli interi (somma, sottrazione, moltiplicazione, shifting)
+  	  
+  	  \vspace{2em}
+  	  
+  	  \begin{block}{Utilizzo fixed Point}
+  	  		Questa rappresentazione dei numeri viene utilizzata su sistemi che non dispongono di una Floating
+  	  		Point Unit (FPU). Una volta erano molto più utilizzati. Tipo nella PS1, nel Saturn, nel GBA, nel
+  	  		Nintendo DS... NEL SATURN! Vuol dire che il Dreamcast aveva già una FPU (anzi 4)
+  	  \end{block}
     
   \end{frame}
-  \subsection{Metodi di conversione base-10 a base-2}
+  \subsection{Limiti}
 	\begin{frame}
-    \frametitle{Conversione base-10 a base-2}
-    Ci sono due metodi per farlo:
+    \frametitle{Fixed Point}
+    \framesubtitle{Limiti}
     \begin{itemize}
-    		\item \emph{Divisione e Modulo}: Continuare a dividere per due e mantenere il resto
-    		\item \emph{Sottrazione}: Testare se il numero è contenuto in un multiplo di due, se sì ve
-    			lo segnate da parte e poi lo sottraete dal numero e continuate così
+			\item Pochi linguaggi hanno un supporto built-in dei Fixed (C e C++ ce l'hanno grazie a GCC)
+    		\item Possono rappresentare solo numeri nella forma $\frac{k}{2^x}$
+    		\item Tutti gli altri numeri razionali si possono rappresentare
+    			solo usando una serie di bit decimali periodica.
     \end{itemize}
+    \vspace{1em}
+    $$\frac{1}{3}_{10} = 0.\overline{01}_{2}$$
+    $$\frac{1}{5}_{10} = 0.\overline{0011}_{2}$$
+    $$\frac{1}{10}_{10} = 0.0\overline{0011}_{2}$$
   \end{frame}
   \begin{frame}
     \frametitle{Conversione base-10 a base-2}
