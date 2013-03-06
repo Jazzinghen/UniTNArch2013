@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="Booth.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path3854"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3842"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="329.93041"
+     inkscape:cy="648.27559"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       orientation="1,0"
+       position="428.30468,501.03566"
+       id="guide3025" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="309.10668,870.75149"
+       id="guide3027" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="475.78185,703.06617"
+       id="guide6323" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="187.14286,588.57143"
+       id="guide6333" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+       x="180"
+       y="132.36218"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="180"
+         y="132.36218" /></text>
+    <g
+       id="g6402"
+       inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120">
+      <path
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         inkscape:connector-curvature="0"
+         id="path3037"
+         d="m 108.35096,244.11832 221.22341,0"
+         style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <g
+         id="g6368">
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:GeosansLight;-inkscape-font-specification:GeosansLight Medium"
+           x="281.08707"
+           y="181.61069"
+           id="text2989"
+           sodipodi:linespacing="100%"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             sodipodi:role="line"
+             id="tspan2991"
+             x="281.08707"
+             y="181.61069"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:100%;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono">00001001</tspan><tspan
+             sodipodi:role="line"
+             x="281.08707"
+             y="221.61069"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:100%;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             id="tspan2993">11110011</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:GeosansLight;-inkscape-font-specification:GeosansLight Medium"
+           x="281.08707"
+           y="284.04819"
+           id="text2995"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             sodipodi:role="line"
+             x="281.08707"
+             y="284.04819"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             id="tspan2999">11110111</tspan><tspan
+             sodipodi:role="line"
+             x="281.08707"
+             y="334.04819"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             id="tspan3007" /></text>
+        <text
+           sodipodi:linespacing="125%"
+           id="text3011"
+           y="352.73343"
+           x="239.28062"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:GeosansLight;-inkscape-font-specification:GeosansLight Medium"
+           xml:space="preserve"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             id="tspan3015"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             y="352.73343"
+             x="239.28062"
+             sodipodi:role="line">00001001</tspan></text>
+        <text
+           sodipodi:linespacing="125%"
+           id="text3019"
+           y="418.93365"
+           x="200.73094"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:GeosansLight;-inkscape-font-specification:GeosansLight Medium"
+           xml:space="preserve"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             id="tspan3021"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             y="418.93365"
+             x="200.73094"
+             sodipodi:role="line">11110111</tspan><tspan
+             id="tspan3023"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+             y="468.93365"
+             x="200.73094"
+             sodipodi:role="line" /></text>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+           x="292.30026"
+           y="177.61069"
+           id="text3029"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             sodipodi:role="line"
+             id="tspan3033"
+             x="292.30026"
+             y="177.61069">x</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+           x="261.21698"
+           y="319.09296"
+           id="text3807"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             sodipodi:role="line"
+             id="tspan3809"
+             x="261.21698"
+             y="319.09296"
+             style="text-align:end;text-anchor:end">-</tspan></text>
+        <text
+           sodipodi:linespacing="125%"
+           id="text3811"
+           y="389.76303"
+           x="218.79054"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+           xml:space="preserve"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             style="text-align:end;text-anchor:end"
+             y="389.76303"
+             x="218.79054"
+             id="tspan3813"
+             sodipodi:role="line">-</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+           x="281.08707"
+           y="223.08788"
+           id="text3815"
+           sodipodi:linespacing="125%"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120"><tspan
+             sodipodi:role="line"
+             id="tspan3817"
+             x="281.08707"
+             y="223.08788"
+             style="fill:#cccccc">0</tspan></text>
+        <path
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0"
+           id="path3821"
+           d="m 243.64162,218.71349 0,17.42513 37.88071,0 0,-17.29887"
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="fill:none;stroke:#4400aa;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 263.51535,218.0371 0,10.10152 38.00698,0 0,-10.10153"
+           id="path3819"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 203.51534,218.71349 0,17.42513 36.7443,0 0,-17.29887"
+           id="path3825"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0"
+           id="path3823"
+           d="m 222.63146,218.0371 0,10.10152 37.88072,0 0,-10.10153"
+           style="fill:none;stroke:#ff6600;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0"
+           id="path3829"
+           d="m 163.38908,218.71349 0,17.42513 36.99683,0 0,-17.29887"
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0"
+           id="path3827"
+           d="m 183.38908,218.0371 0,10.10152 36.11295,0 0,-10.10153"
+           style="fill:none;stroke:#4400aa;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 142.5052,218.0371 0,10.10152 37.88071,0 0,-10.10153"
+           id="path3831"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 121.87385,218.71349 0,17.42513 38.51206,0 0,-17.29887"
+           id="path4837"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="fill:none;stroke:#4400aa;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Send)"
+           d="m 296.74441,231.10817 0,42.4264 -15.65736,0"
+           id="path4839"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="opacity:0.75;fill:none;stroke:#666666;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-mid:none;marker-end:url(#Arrow1Send)"
+           d="m 286.70603,235.65385 27.71605,0 0,73.32272 -51.69109,0"
+           id="path5025"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="fill:none;stroke:#ff6600;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Send)"
+           d="m 249.21094,231.54143 0,20.82075 56.42857,0 0,88.57143 -61.07142,0"
+           id="path5395"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccccc"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="opacity:0.75;fill:none;stroke:#4d4d4d;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-mid:none;marker-end:url(#Arrow1Send)"
+           d="m 223.00328,240.70461 0,15.15229 96.97464,0 0,124.24876 -103.54063,0"
+           id="path5581"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+        <path
+           style="fill:none;stroke:#4400aa;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Send)"
+           d="m 187.14286,231.61324 0,20.70813 -165.66501,0 0,155.56349 15.65736,0"
+           id="path6135"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+           inkscape:export-xdpi="120"
+           inkscape:export-ydpi="120" />
+      </g>
+      <path
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6321"
+         d="m 25.51846,433.13867 303.04576,0"
+         style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g6439"
+       transform="translate(0,-47.849341)"
+       inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120">
+      <text
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         sodipodi:linespacing="125%"
+         id="text6325"
+         y="318.64789"
+         x="648.49335"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           style="text-align:end;text-anchor:end"
+           y="318.64789"
+           x="648.49335"
+           id="tspan6327"
+           sodipodi:role="line">100011011</tspan></text>
+      <text
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         sodipodi:linespacing="125%"
+         id="text6329"
+         y="355.50504"
+         x="568.76007"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="355.50504"
+           x="568.76007"
+           id="tspan6331"
+           sodipodi:role="line">11110111</tspan></text>
+      <path
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 392.92471,369.71009 303.04576,0"
+         id="path6335"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <text
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         sodipodi:linespacing="125%"
+         id="text6337"
+         y="405.89795"
+         x="648.49335"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="405.89795"
+           x="648.49335"
+           id="tspan6339"
+           sodipodi:role="line">10001011</tspan></text>
+      <text
+         inkscape:export-ydpi="120"
+         inkscape:export-xdpi="120"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="659.70654"
+         y="314.1821"
+         id="text6341"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan6343"
+           x="659.70654"
+           y="314.1821">+</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6366"
+         d="m 392.92471,281.71009 303.04576,0"
+         style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png"
+         inkscape:export-xdpi="120"
+         inkscape:export-ydpi="120" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-mid:none;marker-end:url(#Arrow1Send)"
+       d="m 270,440.93361 0,25.71429 87.14286,0 0,-285.03721 70,0 0,43.60864"
+       id="path6451"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120"
+       inkscape:export-filename="/home/jazzinghen/Documents/Teaching/Architecture 2013/Lessons/Lesson 02 - Signed + Float/IMGs/Booth.png" />
+  </g>
+</svg>

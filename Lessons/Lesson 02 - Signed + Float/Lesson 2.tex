@@ -118,6 +118,9 @@
 		Il processo utilizza un concetto molto semplice, ovvero che:
 		
 		$$01\text{...}1 = 10\text{...}0 - 1$$
+		
+		Questo fa sì che sia molto buono con lunghe serie di 1 o 0, ma pessimo nel
+		caso di \emph{burst} di 10 (o 01).
   \end{frame}
   \begin{frame}
     \frametitle{Moltiplicazione signed: Algoritmo di Booth}
@@ -155,7 +158,14 @@
   \begin{frame}
     \frametitle{Moltiplicazione signed: Algoritmo di Booth}
     \framesubtitle{Esempio}
-    
+    $$9_{10} * -13_{10} = 00001001_{2} * 11110011_{2} = ?$$
+    \pause
+    \begin{center}
+    		\includegraphics[width=.8\textwidth]{IMGs/Booth.png}
+    \end{center}
+    \pause
+    \vspace{1em}
+    $$10001011_{2} = -117_{10}$$
   \end{frame} 
   
   \section[Fixed]{Numeri binari frazionari}
@@ -212,349 +222,228 @@
     $$\frac{1}{5}_{10} = 0.\overline{0011}_{2}$$
     $$\frac{1}{10}_{10} = 0.0\overline{0011}_{2}$$
   \end{frame}
-  \begin{frame}
-    \frametitle{Conversione base-10 a base-2}
-    \framesubtitle{Divisione e modulo}
-    \begin{itemize}
-    		\item Più facilmente implementabile
-    \end{itemize}
-    \begin{columns}
-    \column{.6\textwidth}
-    \footnotesize{
-    \begin{algorithm}[H]
-    		\SetAlgoLined
-			 \KwData{n: Numero base-10 da convertire}
-			 \KwResult{s: Numero convertito in base-2}
-			 s = stringa vuota\;			 
-			 \While{n>0}{
-			  s = (n mod 2) + s\; 
-			  n = n div 2\;
-			 }
-    \end{algorithm}
-		}
-	  \column{.4\textwidth}
-	 	\footnotesize{		
-			\pause
-	 		$$97_{10} = ??$$
-		  \pause
-			\begin{tabular}{|c|l|}
-			\hline
-			 n & s \\
-			\hline
-	     97 & \\
-	     48 & 1 \\
-	     24 & 01 \\
-	     12 & 001 \\
-	     6 & 0001 \\
-	     3 & 00001 \\
-	     1 & 100001 \\
-	     0 & 1100001 \\
-			\hline
-			\end{tabular}
-		  $$97_{10} = 1100001_{2}$$ 
-		}		
-	  \end{columns}
-		
-		
-  \end{frame}
-  \begin{frame}
-    \frametitle{Conversione base-10 a base-2}
-    \framesubtitle{Sottrazione}
-    \begin{itemize}
-    		\item Terribile se usato con numeri grandi
-    \end{itemize}
-	\begin{columns}
-  \column{.6\textwidth}
-    \footnotesize{
-    \begin{algorithm}[H]
-    		\SetAlgoLined
-			 \KwData{n: Numero base-10 da convertire}
-			 \KwResult{s: Numero convertito in base-2}
-			 s = stringa vuota\;
-			 i = massima potenza di due contenuta in n\;		 
-			 \Repeat{i=0}{
-			  \eIf{$i \leq n$}{
-			  		s = s + ``1''\; 
-			  		n = n - i\;
-			 }{
-			 		s = s + ``0''\;
-			 }
-			  i = i div 2\;
-			 }
-    \end{algorithm}
-	}
-  \column{.4\textwidth}
- 	\footnotesize{		
-		\pause
- 		$$117_{10} = ??$$
-	  \pause
-		\begin{tabular}{|c|c|l|}
-		\hline
-		 n & i & s \\
-		\hline
-     117 & 64 & \\
-     53 & 32 & 1 \\
-     21 & 16 & 11 \\
-     5 & 8 & 111 \\
-     5 & 4 & 1110 \\
-     1 & 2 & 11101 \\
-     1 & 1 & 111010 \\
-     0 & 0 & 1110101 \\
-		\hline
-		\end{tabular}
-	  $$117_{10} = 1110101_{2}$$ 
-	}		
-  \end{columns}
-  \end{frame}
+  \section{Floating Point}
+ 	\begin{frame}
+ 		\frametitle{I floating points: virgole instabili}
+    \framesubtitle{Intro}
+    \begin{center}
+    		\includegraphics[width=.8\textwidth]{IMGs/MGS-FP1.png}
+    \end{center}
+	\end{frame} 	 
   
-  \section[Operations]{Aritmetica dei naturali}
-	\subsection[NatSum]{Somma di Naturali}  
+  \subsection{I soliti casini}
 	  \begin{frame}
-	    \frametitle{Somma di naturali}
-	    \framesubtitle{Un'introduzione, prima}
-			\begin{center}
-	    \begin{tabular}{|c|c|c||c|c|}
-	    		\hline
-	    			A & B & Carry & C & Carry \\
-	    		\hline
-	    			0 & 0 & 0 & 0 & 0 \\
-	    			1 & 0 & 0 & 1 & 0 \\
-	    			0 & 1 & 0 & 1 & 0 \\
-	    			1 & 1 & 0 & 0 & 1 \\
-	    			0 & 0 & 1 & 1 & 0 \\
-	    			1 & 0 & 1 & 0 & 1 \\
-	    			0 & 1 & 1 & 0 & 1 \\
-	    			1 & 1 & 1 & 1 & 1 \\
-	    		\hline
-	    \end{tabular}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Ah, buttare via i soldi}
+	    È l'estate del 1994 ed il professor Nicely sta scrivendo un codice per contare
+	    i numeri primi, i numeri primi gemelli, le triplette e le quadruple fino a $6.4*10^{15}$.
 	    
-	    \vspace{2em}
-	    
-	    A + B + Carry = C + Carry
-	    \end{center}	  
-	  \end{frame}
-	  \begin{frame}
-	    \frametitle{Somma di naturali}
-	    \framesubtitle{Esempio}
-	    $$117_{10} + 97_{10} = 1110101_{2} + 1100001_{2} = \text{?}$$
-	    \vspace{2em}
-	    \pause
-			\begin{center}
-			\begin{tabular}{cccccccc|c} 
-			 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & + \\  
-			 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & = \\ 
-			\hline 
-			1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 &  \\ 
-			\end{tabular}
-			\end{center}
-			\pause
-			\vspace{2em}
-			$$11010110_{2} = 214_{10}$$
-	  \end{frame}
-  \subsection[NatSub]{Sottrazione di Naturali}  
-	  \begin{frame}
-	    \frametitle{Sottrazione di naturali}
-	    \framesubtitle{Operazione di base e ``Il prestito''}
-	    Come nella somma si va da destra a sinistra seguendo delle regole banali:
-			
 			\vspace{2em}	    
 	    
-	    \begin{center}
-		    \begin{tabular}{|c||c|c|c|c|}
-		    \hline 
-		    A & 0 & 1 & 1 & \textbf{0} \\ 
-		    \hline 
-		    B & 0 & 0 & 1 & \textbf{1} \\ 
-		    \hline 
-		    A-B & 0 & 1 & 0 & \textbf{1} \\ 
-		    \hline 
-		    \end{tabular}
-	    \end{center}
+	    Questo programma ha girato per 13 anni su una ventina di PC in parallelo, però, prima
+	    di iniziare i lavori seri, ha deciso di fare dei test, calcolando valori nell'ordine
+	    di grandezza di $10^{13}$ e confrontandoli con dei risultati certificati, trovando delle
+	    discrepanze.
 	    
-	    \vspace{2em}
-	    
-	    Nell'ultimo caso bisogna scorrere a sinistra finchè
-	    non si trova un 1, invertendo il valore di tutte le cifre incontrate, 1 compreso.
-	    
-	    $$ 10..0 \rightarrow 01..1 $$
-	  \end{frame}
-	  \begin{frame}
-	    \frametitle{Sottrazione di naturali}
-	    \framesubtitle{Esempio}
-	    $$214_{10} - 117_{10} = 11010110_{2} - 1110101_{2} = \text{?}$$
-	    \vspace{2em}
-	    \pause
-			\begin{center}
-			\begin{tabular}{cccccccc|c} 
-				1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 &	- \\		 
-			 		& 1 & 1 & 1 & 0 & 1 & 0 & 1 & = \\  
-			\hline			 
-			 & 1 & 1 & 0 & 0 & 0 & 0 & 1 &  \\ 
-			\end{tabular}
-			\end{center}
-			\pause
-			\vspace{2em}
-			$$1100001_{2} = 97_{10}$$
-	  \end{frame}
-	\subsection[NatMul]{Moltiplicazione di Naturali}  
-	  \begin{frame}
-	    \frametitle{Moltiplicazione di naturali}
-	    \framesubtitle{Moltiplicazione (e divisione) per potenze di due}
-	    Ok, se dobbiamo moltiplicare un numero base-10 per 10 dobbiamo...
-	    
-	    \pause
-	    
-	    \begin{center}
-		    Aggiungere uno 0 a destra.
-		    
-		    \includegraphics[width=.5\textwidth]{IMGs/youdontsay.png}
-	    \end{center}
-	    
-	  \end{frame}
-	  \begin{frame}
-	    \frametitle{Moltiplicazione di naturali}
-	    \framesubtitle{Moltiplicazione (e divisione) per potenze di due, cont.}
-	    Nel caso dei numeri base-2, aggiungere uno 0 a destra significa
-	    moltiplicare il numero per 2, mentre eliminando la prima cifra a
-	    desra significa dividere per 2.
-	    
-	    \vspace{2em}
-	    
-	    Questa operazione è chiamata shifting, utilizzata spesso dai compilatori
-	    per ottimizzare la moltiplicazione.
-	  \end{frame}
-	  \begin{frame}
-	    \frametitle{Moltiplicazione di naturali}
-	    \framesubtitle{Moltiplicazione tra due Naturali}
-	    Moltiplicare due numeri base-2 naturali altro non è che l'applicazione
-	    di shifting multipli e poi della somma sui risultati degli shifting.
-	    
-	    \vspace{2em}
-	    
-	    Alla fine non è differente dalla moltiplicazione in base-10, solo che è più
-	    semplice perché o bisogna sommare uno dei due moltiplicatori shiftati o nulla.
-	  \end{frame}
-		\begin{frame}
-	    \frametitle{Moltiplicazione di naturali}
-	    \framesubtitle{Esempio}
-			
-			$$13_{10} x 17_{10} = 1101_{2} x 10001_{2} = \text{?}$$
-	    \vspace{1em}
-	    \pause	    
-	    \begin{center}
-	    \begin{tabular}{cccccccc||c}
-	      &   &   &   & 1 & 1 & 0 & 1 & x \\ 
-	      &   &   & 1 & 0 & 0 & 0 & 1 & = \\ 
-	    \hline 
-	      &   &   &   & 1 & 1 & 0 & 1 &  + \\ 
-	      &   &   &   &   &   & - &   &  + \\ 
-	      &   &   &   &   & - &   &   &  + \\ 
-	      &   &   &   & - &   &   &   &  + \\ 
-	    1 & 1 & 0 & 1 &   &   &   &   &   \\ 
-	    \hline 
-	    1 & 1 & 0 & 1 & 1 & 1 & 0 & 1 &   \\ 
-	    \end{tabular} 
-	    \end{center}
-	    
-	    \pause
-			\vspace{1em}
-			$$11011101_{2} = 221_{10}$$
-	  \end{frame}
-	\subsection[Errors]{Error checking}
-		\begin{frame}
-	    \frametitle{Error Checking}
-	    \framesubtitle{Overflow/Underflow}
-	    \begin{columns}
-			\column{.6\textwidth}	    
-			\footnotesize{
-	    Fino ad ora abbiamo sempre fatto calcoli pensando di avere cifre infinite a nostra disposizone.
-    
-	    ...
-	    
-	    Purtroppo, la realtà ci impone dei limiti di spazio, dettati
-	    dall'architettura di basso livello del calcolatore.
-	    
-	    A causa di questo si possono rischiare errori da semplicemente stupidi a catastrofici.
-	    
-	    \vspace{1em}
-	    \pause
-	    
-	    Tipo quello che è successo all'Ariane 5 501, missile Geostationary Transfer Orbit (GTO), progettato
-	    dalla Astrium per l'ESA. A causa di un errore di conversione e di mancato controllo degli Overflow
-	    la casa di produzione ha bruciato 370M\$ in circa 40 secondi.
-	    }
-	    \column{.4\textwidth}
-	    \begin{center}
-	    		\includegraphics[width=.9\textwidth]{IMGs/overflow.jpeg}
-	    \end{center}
-	    \end{columns}
 	  \end{frame}
 	  
-	\begin{frame}
-    \frametitle{Error Checking}
-    \framesubtitle{Overflow/Underflow cont.}
-    Possiamo immaginare i numeri in base-2 con una quantità limitata di cifre come se fossero posti
-    intorno ad una ruota:
-    
-    \begin{center}
-    \includegraphics[width=.5\textwidth]{IMGs/TheBurningWheel.png}
-    \end{center}
-
-  \end{frame}
-  
-  	\begin{frame}
-    \frametitle{Error Checking}
-    \framesubtitle{Overflow/Underflow cont.}
-    Nel caso precedente il numero è formato al massimo da 3 cifre binarie, quindi, se noi provassimo a
-    calcolare $111_{2} + 1_{2}$ il risultato dovrebbe essere $1000_{2}$, solo che non abbiamo abbastanza
-    cifre per contenere tutte le informazioni.
-    
-    Il risultato sarà quindi $000_{2}$. In pratica, $7_{10} + 1_{10} = 0_{10}$.
-    
-    \vspace{2em}
-    \pause
-    
-    Fortunatamente le ALU contengono delle flag che indicano se è avvenuto un overflow (o un underflow)
-    durante un'operazione aritmetica.
-  \end{frame}
-  
-  \section[NegativeRep]{Aggiunta del segno negli interi}
+	  \begin{frame}
+	  		\frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Ah, buttare via i soldi, Cont.}
+	  	    
+	    Testò il software su due macchine differenti, un Intel P6 ed un 486DX-33\footnote{Hei,
+	    dovrei averne uno da qualche parte in camera!}, ed anche lì riscontrò risultati differenti
+	    con ordini d'errore troppo grossi per venir generati dall'arrotondamento.
+	    
+			\vspace{2em}	  	    
+	    
+	    Dopo di questo provò di tutto: errori introdotti dal compilatore, provò a disattivare le FPU.
+	    Controllò persino se non fosse il BUS PCI. Alla fine scoprì che il problema era in una serie
+	    di processori Intel (le P6), testandolo anche su delle macchine in esposizione in un negozio
+	    locale di informatica.
+	    
+	  \end{frame}
+	  
+	  \begin{frame}
+	  		\frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Ah, buttare via i soldi: Grand Finale}
+	  	    
+	    Com'è andata a finire? Il Professor Nicely ha completato la sua ricerca nel 2006, utilizzando
+	    486DX-33 ed altre macchine, cambiate nel tempo, mentre l'Intel, pensate un po', per un errore
+	    che capitava una volta ogni nove miliardi di divisioni floating, ma che è stato gonfiato su
+	    Internet (parliamo del 1994), ha perso una cosa come 450M\$ sostituendo gratis tutti i processori
+	    agli utenti che lo richiedevano.
+	    
+	  \end{frame}
+	  
+	  \begin{frame}
+	  		\frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Ah, buttare via i soldi: La scena dopo i titoli di coda}
+	  
+	  		\begin{center}
+	  		...
+	  		\end{center}
+	  		
+	  		\pause
+	    
+			\begin{center}
+	    		\includegraphics[width=.6\textwidth]{IMGs/Y2K.jpg}
+	    \end{center}	    
+	    
+	    \begin{center}
+	    		Mi rendo conto solo ora che questa è forse la spesa più grossa per un problema
+	    		sovrastimato dopo i 300G\$ per lo Y2K.
+			\end{center}	    
+	    
+	  \end{frame}
+	  
+  \subsection{Introduzione}
   \begin{frame}
-  		\frametitle{Aggiungere il segno agli interi}
-  		Il supporto per i numeri negativi è stato aggiunto in vari modi\footnote{I quali dimezzano il
-  		numero massimo rappresentabile}:
+    \frametitle{I floating points: virgole instabili}
+    \framesubtitle{Intro cont.}
+      IEEE Standard 745.
+      
+      \vspace{2em}
+      
+      È lo standard per la rappresentazione di numeri decimali con virgola mobile, ed è stato progettato
+      pensando alle proprietà matematiche:
+      
+      \begin{itemize}
+      		\item Ottimo comportamento in caso di arrotondamento, over/underflow
+      		\item Il problema è che è molto complicato da implementare a livello hardware
+      \end{itemize}
+      
+      \begin{block}{FPUs! :D}
+      		In questi giorni i processori più cacciati per fare calcoli floating sono le GPU:
+      		in pratica non si usano quasi gli integer per fare calcoli in 3D (da matrici di trasferimento
+      		3D-2D a computazione del colore ai motori fisici)
+      \end{block}
+  \end{frame}
+  	\subsection{Rappresentazione}
+  \begin{frame}
+    \frametitle{Floating Point: Virgole instabili}
+    \framesubtitle{Rappresentazione dei numeri}
+    I numeri floating points sono una rappresentazione in binario della notazione scientifica:
+    $$(-1)^{s} * M * 2^{Exp}$$
+    Dove:
     \begin{itemize}
-    		\item \emph{Segno-e-Modulo}: Un bit fa da segno, gli altri sono il valore del numero
-    		\item \emph{Complemento ad 1}: Per avere il numero negativo invertiamo tutti i bit.
-    		\item \emph{Complemento a 2}: Facciamo il complemento ad 1 e poi sommiamo 1.
+    		\item s determina il segno del numero
+    		\item M è il valore, normalmente $1.0 \leq \text{M} < 2.0$
+    		\item Exp è l'esponente intero di 2 per il quale bisogna moltiplicare il tutto.
     \end{itemize}
-  \end{frame}
-  \subsection{Segno-e-Modulo}
-  \begin{frame}
-  		\frametitle{Aggiungere il segno agli interi}
-    \framesubtitle{Rappresentazione in Segno-e-Modulo}
-    
+    In forma binaria tutto questo si trasforma in:
     \begin{itemize}
-    		\item Più vicino (Anzi, esattamente IL) al metodo usato per la rappresentazione dei negativi nei float
-    		\item Permette l'esistenza di due 0: $+0$ e $-0$
-    		\item Richiede una logica più complessa per venir implementato.
+    		\item 1 singolo bit s (0 positivo, 1 negativo)
+    		\item una serie di bit e che indicano l'esponente
+    		\item una serie di bit m che indicano la mantissa
     \end{itemize}
+    E siccome c'è della simpatia nell'aria né e né m sono uguali ad M od Exp.
   \end{frame}
-  \subsection{Complemento a 2}
-  \begin{frame}
-  		\frametitle{Aggiungere il segno agli interi}
-    \framesubtitle{Complemento a 2}
-		Il complemento ad 1 è migliore del Segno-e-Modulo per gli interi, ma ha ancora dei problemi, tipo
-		il doppio $0$ oppure il fatto che è macchinoso a causa dell'offset di $-1$ dei numeri negativi.
-		
-		Per questo è stato inventato il complemento a 2:
-		
-		\begin{itemize}
-			\item Solo uno 0
-			\item Trasparente per somma, sottrazione e moltiplicazione
-			\item Per questo molto più facilmente implementabile a livello hardware
-		\end{itemize}		    
-    %Complemento ad 1 sarebbe figo, ma ci sega un valore. Complemento a 2 (Cmpl1 + 1) rimuove il problema. 
-  \end{frame}
+   
+	  \begin{frame}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Dimensioni delle componenti}
+			Single:
+			
+			\begin{center}
+				\includegraphics[width=.8\textwidth]{IMGs/Single.png}
+			\end{center}
+			\vspace{1em}
+			Double:
+			
+			\begin{center}
+				\includegraphics[width=.8\textwidth]{IMGs/Double.png}
+			\end{center}
+			\vspace{1em}
+			Quad:
+			
+			\begin{center}
+				\includegraphics[width=.8\textwidth]{IMGs/Quad.png}
+			\end{center}
+	  \end{frame}
+	  \subsection{Valori Normalizzati}
+	  \begin{frame}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Valori normalizzati}
+	    Quando si ha $\text{e} \neq 0\text{...}0$ o $\text{e} \neq 1\text{...}1$ allora si ha una
+	    versione normalizzata del numero in virgola mobile, ovvero:
+	    
+	    \begin{itemize}
+	      \item Esponente (Exp): Exp = e - Bias
+	      		\begin{itemize}
+	      			\item Il Bias è pari a $2^{k-1} - 1$, dove k è il numero di bit dell'esponente.
+	      			\item Avremmo così un range di esponenti di -126...127 per single, -1022...1023 per i double e
+	      				-16383...16384 per i quad.
+	      		\end{itemize}
+	      \item Valore (M): $1.m_{k}m_{k-1}...m_{1}$
+	      		\begin{itemize}
+	      			\item Abbiamo k bit + 1 per rappresentare il valore, grazie al \emph{1.}
+	      			\item Il minimo è 1.0, dato da $\text{m} = 0\text{...}0$
+	      			\item Il massimo è 2.0 - $\epsilon$, dato da $\text{m} = 1\text{...}1$\footnote{$\epsilon$ è un valore
+	      				piccolo a scelta. In pratica il valore M potrà arrivare a valere quasi 2, non arrivandoci mai.}
+	      		\end{itemize}
+	    \end{itemize}
+	  \end{frame}
+	  \begin{frame}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Valori normalizzati: Esempio}
+	    		$$1337.0_{10} = ?$$
+	    		\vspace{1em}
+	    		\pause
+	    		$$1337.0_{10} = 010100111001_{2}$$
+	    		Normalizziamo la mantissa: $010100111001_{2} = 1.0100111001_{2}*2^{11}$
+	    	  
+	    	  Mantissa: $\text{m} = 01001110010000000000000$
+	    	  
+	    	  Esponente:
+	    	  \begin{itemize}
+	    	  		\item Exp = 11
+	    	  		\item Bias = 127
+	    	  		\item e = Exp + Bias = 127 + 11 = 138 = $10001010_{2}$
+	    	  \end{itemize}
+	    	  
+	    	  \vspace{1em}
+	    	  \pause
+	    	  \begin{center}
+					\includegraphics[width=.8\textwidth]{IMGs/SingleExample.png}
+				\end{center}
+	  \end{frame}
+  \subsection{Valori Denormalizzati}
+	  \begin{frame}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Valori denormalizzati}
+	    Quando si ha $\text{e} = 0\text{...}0$ allora stiamo lavorando con una versione
+	    denormalizzata del numero in virgola mobile:
+	    
+	    \begin{itemize}
+	      \item Esponente (Exp): Exp = -Bias + 1
+	      \item Valore (M): $0.m_{k}m_{k-1}...m_{1}$, invece che $1.m_{k}m_{k-1}...m_{1}$      
+	        \begin{itemize}
+	      			\item Con m = 0...0, allora il float vale 0.\footnote{Così, però, avremo $+0$ e $-0$. Come mai?}
+	      			\item Con $\text{m} \neq 0\text{...}0$ avremmo numeri molto piccoli vicini a 0, ma perdiamo precisione.
+	      		\end{itemize}
+	    \end{itemize}
+	  \end{frame}
+	  \subsection{Casi speciali}
+	  \begin{frame}
+	    \frametitle{Floating Point: Virgole instabili}
+	    \framesubtitle{Casi speciali}
+	    Per indicare che qualcosa è andato storto l'esponente viene settato a $\text{e} = 1\text{...}1$
+	    
+	    \begin{itemize}
+	      \item $m = 0\text{...}0$
+	      		\begin{itemize}
+	      			\item Rappresenta $\infty$
+	      			\item Può essere negativo o positivo
+	      			\item Indica che c'è stato un overflow\footnote{Avete diviso per 0, sì?}
+	      		\end{itemize}
+	      	\item $m \neq 0\text{...}0$
+	      		\begin{itemize}
+	      			\item Rappresenta NaN
+	      			\item Viene utilizzato quando non si può determinare il risultato di un'operazione, tipo $\sqrt{-1}$\footnote{per
+	      				questo dovete utilizzare una libreria per i complessi} o $\infty * 0$
+	      		\end{itemize}
+	    \end{itemize}
+	  \end{frame}
 % etc
 \end{document}
