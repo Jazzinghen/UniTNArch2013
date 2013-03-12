@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \usetheme{AnnArbor}
-\geometry{paperwidth=140mm,paperheight=105mm}
 \usecolortheme{beaver}
+\geometry{paperwidth=140mm,paperheight=105mm}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
@@ -164,37 +164,11 @@
 	    		\end{tabular} 
 	    \end{center}
   \end{frame}
+  \subsection{Moltiplicazione}
   \begin{frame}
-    \frametitle{Moltiplicazione signed: Algoritmo di Booth}
-    \framesubtitle{L'algoritmo di Booth}
-    \begin{columns}
-    \column{.5\textwidth}
-    	  L'algoritmo è molto semplice.
-    	  
-    	  Si tratta di scorrere le cifre del secondo termine del
-    	  prodotto e guardare la cifra immediatamente a destra
-    	  (la prima cifra a destra è sempre 0).
-    	  
-			\vspace{2em}    	  
-    	  
-    	  In base a quale è la coppia bisognerà sommare o sottrarre
-    	  il primo termine del prodotto.
-    \column{.5\textwidth}
-    		\begin{center}
-			\begin{tabular}{|c||p{6em}|}
-				\hline				
-				Coppia di valori & Operazione \\
-				\hline
-				00 & \multirow{2}{*}{Nulla} \\
-				11 & \\
-				\hline				
-				10 & Sottrare il moltiplicando 	\\
-				\hline				
-				01 & Sommare il motiplicando 		\\
-				\hline 
-			\end{tabular}
-			\end{center}
-    \end{columns}
+    \frametitle{Floating Point}
+    \framesubtitle{Moltiplicazione}
+    $$(-1)^{s1} * M1 * 2^{Exp1} \cdot_{f} (-1)^{s2} * M2 * 2^{Exp2} = (-1)^{s} * M * 2^{Exp}$$
   \end{frame}
 
   \begin{frame}
