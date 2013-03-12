@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usetheme{AnnArbor}
+\geometry{paperwidth=140mm,paperheight=105mm}
 \usecolortheme{beaver}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -28,7 +29,7 @@
 
 \title[Arch2013] % (optional, only for long titles)
 {Architettura degli elaboratori 2012/2013}
-\subtitle{Aritmetica binaria: Signed, Fixed e Float}
+\subtitle{Aritmetica binaria: Operazioni con i Float}
 \author{Michele ``Jazzinghen'' Bianchi\inst{1}}
 \institute[DISI] % (optional)
 {
@@ -36,8 +37,8 @@
   Dipartimento di Ingegneria e Scienze dell'Informazione\\
   Universtià degli Studi di Trento
 }
-\date[2013-03-06] % (optional)
-{06 Marzo 2013}
+\date[2013-03-13] % (optional)
+{13 Marzo 2013}
 \subject{Computer Science, Embedded Systems}
 
 \begin{document}
@@ -47,80 +48,121 @@
     \frametitle{Alcune cose prima d'iniziare}
     \framesubtitle{Ve l'avevo detto che avrei risposto}
 		\begin{itemize}
-			\item La t-shirt che indossavo l'altra volta era di Think Geek: \url{http://www.thinkgeek.com/product/dae9/}\footnote{Quella
-				di oggi è di \url{http://www.redbubble.com/}}
-			\item Il mio sito web (quello con sopra la roba) è: \url{http://disi.unitn.it/~bianchi}. È fatto con
-				jQuery, PHP, HTML5 e CSS3.
-			\item La parte in assembly verrà fatta usando l'X86\_64.
-			\item GCC bara! La somma tra uint{8,16,32,64} ed int viene fatta attraverso magheggiamenti\footnote{Dettagli sul sito}!
+			\item Sul sito è presente il codice in C per un'applicazione che vi
+				mostra la struttura in bit di un single passato via comand line.
+			\item Il segno di un numero signed può venir cambiato facendo il complemento a 2
+			\item L'algoritmo di Booth è un po' incasinato. Rivediamolo...
 		\end{itemize}
 	\end{frame}   
    
-  \section[Being negative]{Interi con il segno}
-	\subsection{Riassunto dell'ultima puntata}  
+	\begin{frame}
+    \frametitle{Alcune cose prima d'iniziare}
+    \framesubtitle{Booth Algoritm}
+		\begin{columns}
+    \column{.6\textwidth}
+			\begin{itemize}
+				\item Scorrere un bit alla volta, controllando quello alla sua destra
+				\item In base alla coppia bisognerà riportare un valore differente, shiftato in
+					base al bit preso in considerazione:
+				\begin{itemize}
+					\item 00 o 11: Nulla
+					\item 10: sommare il complemento a 2 del primo termine
+					\item 01: sommare il primo termine
+				\end{itemize}
+				\item Finiti i bit basta sommare tutti i termini
+			\end{itemize}
+		\column{.4\textwidth}
+			\begin{center}
+	    		\includegraphics[width=.9\textwidth]{IMGs/FastBooth.png}
+	    \end{center}
+	  \end{columns}
+	\end{frame}   
+	\section{Riassunto dell'ultima puntata}  
   \begin{frame}
     \frametitle{Cos'è successo l'ultima volta?}
 		Abbiamo visto:    
     \begin{itemize}
-    		\item Come sono stati rappresentati i numeri durante le ere
-    		\item Le varie strutture dati utilizzate dai computer
-    		\item Come passare da base-2 a base-10 ed il contrario
-    		\item L'aritmetica con i Naturali binari
-    		\item Come aggiungere il segno ai numeri binari
+    		\item Operazioni con i signed
+    		\item Rappresentazione dei numeri decimali con Fixed Point
+    		\item Limite della rappresentazione Fixed Point
+    		\item Rappresentazione dei numeri decimali con Floating Point
+    		\item Conversione in Floating Points
     \end{itemize}
     %Unari, Babilonesi, Romani, Posizioniali (indiani), Binaria
   \end{frame}
 	
-	\subsection{Somma / Sottrazione}
+	\section{Float Operations}
+	\subsection{Idea di base}
   \begin{frame}
-    \frametitle{Interi con il segno}
-    \framesubtitle{Somma e Sottrazione}
-    Le due operazioni sono la stessa cosa!
+    \frametitle{Floating Point}
+    \framesubtitle{Idea di base}
+    In teoria le operazioni tra floating point sono molto semplici:
+    $$x +_{f} y = round(x + y)$$
+    $$x \cdot_{f} y = round(x \cdot y)$$
     
 		\vspace{2em}    
     
-    Grazie alla convenzione usata (Complemento-2) basta sommare due numeri signed, 
-    ignorando il bit di overflow, per avere il risultato.
+    Più precisamente:
+    \begin{itemize}
+    		\item Calcolare il risultato preciso
+    		\item Normalizzare la mantissa
+    		\item Mettere a posto il resto
+    		\begin{itemize}
+    			\item Andare in overflow se l'esponente è troppo grande
+    			\item Arrotondare se ci sono troppi bit nella mantissa
+    		\end{itemize}
+    \end{itemize}
   \end{frame}
   
+  \subsection{Arrotondamento}
   \begin{frame}
-	    \frametitle{Somma e Sottrazione di interi}
-	    \framesubtitle{Esempio}
-	    $$117_{10} - 34_{10} = 01110101_{2} + 11011110_{2} = \text{?}$$
-	    \vspace{2em}
+	    \frametitle{Floating Point}
+	    \framesubtitle{Arrotondamento}
+	    Il medoto standard per i float è l'even rounding: in caso di valore in bilico arrotondare
+	    in modo che la cifra meno significativa sia pari.
+	    \begin{itemize}
+	    		\item Più facile da implementare a livello hardware
+	    		\item Migliore a livello statistico in caso di operazioni multiple su più numeri arrotondati
+	    		\begin{itemize}
+	    			\item I risultati con valori arrotondati per eccesso sono sovrastimati
+	    			\item Quelli per difetto sottostimati
+	    		\end{itemize}
+	    \end{itemize}
+	    
 	    \pause
-			\begin{center}
-			\begin{tabular}{cccccccc|c} 
-			 0 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & + \\  
-			 1 & 1 & 0 & 1 & 1 & 1 & 1 & 0 & = \\ 
-			\hline 
-			 0 & 1 & 0 & 1 & 0 & 0 & 1 & 1 &  \\ 
-			\end{tabular}
-			\end{center}
-			\pause
-			\vspace{2em}
-			$$01010011_{2} = 83_{10}$$
+	    \vspace{2em}
+	    
+	    Ad esempio (arrotondando al millesimo):
+	    \begin{center}
+	    		\begin{tabular}{ccl}
+	    		23.432500001 & 23.433 & [Arrotondato per eccesso] \\ 
+	    		23.432499999 & 23.432 & [Arrotondato per difetto] \\ 
+	    		23.432500000 & 23.432 & [A metà, pari, arrotondato per difetto] \\ 
+	    		23.433500000 & 23.434 & [A metà, dispari, arrotondato per eccesso] \\ 
+	    		\end{tabular} 
+	    \end{center}
 	  \end{frame}
 
-	\subsection{Moltiplicazione signed}  
   \begin{frame}
-    \frametitle{Moltiplicazione signed: Algoritmo di Booth}    	
-		Possiamo moltiplicare i signed come facevamo con gli unsigned,
-		solo che questo può richiedere una quantità di tempo impressionante.
-		
+    \frametitle{Floating Point}
+	  \framesubtitle{Arrotondamento binario}
+		L'arrotondamento in binario funziona nella stessa maniera:
+		\begin{itemize}
+			\item Un numero binario è \emph{pari} se la cifra meno significativa è $0$
+			\item Un numero binario è \emph{in bilico} se dopo la cifra da arrotondare troviamo
+				$10\text{...}0_{2}$
+		\end{itemize}
+		\pause		
 		\vspace{2em}
-		
-		È per questo che utilizziamo un metodo creato da Andrew Donald Booth, che studiava,
-		ovviamente, cristallografia.
-		
-		\vspace{2em}
-		
-		Il processo utilizza un concetto molto semplice, ovvero che:
-		
-		$$01\text{...}1 = 10\text{...}0 - 1$$
-		
-		Questo fa sì che sia molto buono con lunghe serie di 1 o 0, ma pessimo nel
-		caso di \emph{burst} di 10 (o 01).
+		Ad esempio (arrotondando all'1/8):
+	    \begin{center}
+	    		\begin{tabular}{ccl}
+	    		$10.01101110_{2}$ & $10.011_{2}$ & [Arrotondato per difetto] \\ 
+	    		$10.01110101_{2}$ & $10.100_{2}$ & [Arrotondato per eccesso] \\ 
+	    		$10.01110000_{2}$ & $10.100_{2}$ & [A metà, pari, arrotondato per difetto] \\ 
+	    		$10.01010000_{2}$ & $10.010_{2}$ & [A metà, dispari, arrotondato per eccesso] \\ 
+	    		\end{tabular} 
+	    \end{center}
   \end{frame}
   \begin{frame}
     \frametitle{Moltiplicazione signed: Algoritmo di Booth}
