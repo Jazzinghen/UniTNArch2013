@@ -238,7 +238,7 @@
 		\begin{center}
 				\begin{tabular}{ccccccccccccccccccccccc|c}
 				  &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & x \\ 
-				  &   &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &   &   & = \\ 
+			    &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &   &   &   & = \\ 
 				\hline 
 				  &   &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &  \\ 
 				  &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &   &  \\ 
@@ -334,6 +334,11 @@
 		    		\includegraphics[width=.9\textwidth]{IMGs/Everything.jpg}
 		    \end{center}
 			\end{columns}  
+  \end{frame}
+  \begin{frame}
+  		\begin{center}
+		  \includegraphics[width=.6\textwidth]{IMGs/CoffeeTime.png}
+		\end{center}
   \end{frame}
   \section{Intervallo}
 	  \begin{frame}
@@ -496,6 +501,35 @@
   \begin{frame}
   		\frametitle{Floating Point}
   		\framesubtitle{Esempio di sottrazione}
+  		Float 1: $01000101000101101100100000000000 = 2.4125_{10} * 10^{3}$
+  		
+  		Float 2: $11000110110110011101101000000000 = -2.7885_{10} * 10^{4}$
+  		
+  		\vspace{2em}
+  		\pause
+  		
+    Exp = Max(Exp1, Exp2) = Exp1 = 14
+    
+    M2 = $1.001011011001_{2} * 2^{11} = 0.001001011011001_{2} * 2^{14}$
+    \vspace{1em}
+    
+    \setlength{\tabcolsep}{2pt}
+    \begin{center}
+    		\begin{tabular}{cccccccccccccccc|c}
+    		0. & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & + \\ 
+    		0. & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & = \\ 
+    		\hline 
+    		0. & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 &  \\
+    		\hline
+    		1. & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 &  \\
+    		\end{tabular} 
+    \end{center}
+    
+    \pause 
+    \vspace{1em}
+    Risultato:
+    $$11000110110001110000000100000000 = -2.54725_{10} * 10^{4}$$
+  		
   \end{frame}
   \subsection{Divisione}
   \begin{frame}
@@ -516,10 +550,8 @@
   			\item Fare la divisione invece che il prodotto tra le mantisse
   			\item Exp, alla fine, sarà (Exp1 - Exp 2) + Bias\footnote{Come mai?}
   		\end{itemize}
-  \end{frame}
-  \section{Float vs. C}
-  \begin{frame}
-  		\frametitle{I float in C}
+  		
+  		Lo faremo la prossima volta.
   \end{frame}
 % etc
 \end{document}
