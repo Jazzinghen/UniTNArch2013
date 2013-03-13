@@ -98,7 +98,7 @@
     \framesubtitle{Idea di base}
     In teoria le operazioni tra floating point sono molto semplici:
     $$x +_{f} y = round(x + y)$$
-    $$x \cdot_{f} y = round(x \cdot y)$$
+    $$x *_{f} y = round(x * y)$$
     
 		\vspace{2em}    
     
@@ -168,298 +168,358 @@
   \begin{frame}
     \frametitle{Floating Point}
     \framesubtitle{Moltiplicazione}
-    $$(-1)^{s1} * M1 * 2^{Exp1} \cdot_{f} (-1)^{s2} * M2 * 2^{Exp2} = (-1)^{s} * M * 2^{Exp}$$
+		L'idea è semplice:    
+    
+    $$(-1)^{s1} \text{ } M1 \text{ } 2^{Exp1} *_{f} (-1)^{s2} \text{ } M2 \text{ } 2^{Exp2} = (-1)^{s} \text{ } M \text{ } 2^{Exp}$$
+  	
+  		\begin{center}
+  			\begin{tabular}{|cc|}
+  			\hline 
+  			Segno (s) & s1 $\oplus$ s2 \\ 
+  			\hline 
+  			Valore (M) & M1 $*$ M2 \\ 
+  			\hline 
+  			Esponente (Exp) & Exp1 $+$ Exp2 \\ 
+  			\hline 
+  			\end{tabular} 
+  		\end{center}
+	  
+	  \vspace{1em}
+	  
+	  Normalizzazione:
+	  \begin{itemize}
+	  		\item Se il numero è $> 1_{2}$ o $\geq 2_{10}$, shiftate a destra ed incrementate Exp di uno.
+	  		\item Se l'esponente va oltre il massimo andiamo in \emph{overflow}
+	  		\item Arrotondiamo il numero in modo che sia contenuto nella mantissa
+	  \end{itemize}
+
+		\vspace{1em}
+		\begin{block}{La mantissa}
+			Ricordatevi che la mantissa è tutta la parte a destra della virgola una volta
+			arrivati ad avere un numero nel formato $1.m_{k}m_{k-1}\text{...}m_{1}$
+		\end{block}
   \end{frame}
 
+	\subsection{Esempio Moltiplicazione}
   \begin{frame}
-    \frametitle{Moltiplicazione signed: Algoritmo di Booth}
-    \framesubtitle{Esempio}
-    $$9_{10} * -13_{10} = 00001001_{2} * 11110011_{2} = ?$$
-    \pause
-    \begin{center}
-    		\includegraphics[width=.8\textwidth]{IMGs/Booth.png}
-    \end{center}
-    \pause
+    \frametitle{Floating Point}
+    \framesubtitle{Esempio di moltiplicazione}
+    $$32.375_{10} * 76.15625_{10} = ?$$
+		\begin{center}
+			Spoilers: sarà lunghetta
+		\end{center}		    
     \vspace{1em}
-    $$10001011_{2} = -117_{10}$$
+    Passaggi:
+    \begin{itemize}
+    		\item Convertire i numeri base 10 in numeri base 2
+    		\item Normalizzarli (i.e. $1.mmmm$ moltiplicati per $2^{x}$)
+    		\item Moltiplicare i due numeri ignorando l'esponente (Il problema è sempre moltiplicare)
+    		\item Normalizzare il risultato \& arrotondare/overflow
+    		\item Calcolare l'esponente finale
+    		\item Calcolare il segno
+    		\item Mettere tutto assieme
+    \end{itemize}
+    Uff.
   \end{frame} 
   
-  \section[Fixed]{Numeri binari frazionari}
+  \subsubsection{Moltiplicazione dei due numeri}
   \begin{frame}
-  		\frametitle{Un test}
-  		Ok, quanto è $11101.01001_{2}$ in base-10? (solo positivo)
-  		
-  		\vspace{2em}
-    \pause
-		\begin{center}
-		\begin{tabular}{ccccccccccc} 
-		 $2^4$ & $2^3$ & $2^2$ & $2^1$ & $2^0$ & . & $2^{-1}$ & $2^{-2}$ & $2^{-3}$ & $2^{-4}$ & $2^{-5}$ \\		 
-		 1 & 1 & 1 & 0 & 1 & . & 0 & 1 & 0 & 0 & 1 \\ 
-		\hline 
-		 16 & 8 & 4 & 0 & 1 & . & 0 & $1/4$ & 0 & 0 & $1/32$ \\ 
-		\end{tabular}
-		\end{center}
-		\pause
-		\vspace{2em}
+  		\frametitle{Ok, let's rock!}
+  	
+    $32.375_{10} = 100000.011_{2} * 2^{0} = 1.00000011_{2} * 2^{5}$
+    
+    $76.15625_{10} = 1001100.00101_{2} * 2^{0} = 1.00110000101_{2} * 2^{6}$
+    	
+    	\pause
+    
+    \vspace{1em}
 		
-		$$11101.01001_{2} = 29_{10} + \frac{9}{32}_{10} = 29.28125_{10} $$
+		\setlength{\tabcolsep}{2pt}
+		\begin{center}
+				\begin{tabular}{ccccccccccccccccccccccc|c}
+				  &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & x \\ 
+				  &   &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &   &   & = \\ 
+				\hline 
+				  &   &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &  \\ 
+				  &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &   &  \\ 
+				1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &   &   &   &   &   &   &   &   &  \\ 
+				\hline 
+				  &   &   &   &   &   &   & 1 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &   &   &   &  \\ 
+				\hline 
+				1. & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &   &   &   &  \\ 
+				\end{tabular} 
+		\end{center}
+		
+		\vspace{2em}
+    
+		$$\text{M} = 1.0011010000110001111_{2}$$
   		
   \end{frame}
+  \subsubsection{Esponente e segno}
   \begin{frame}
-  		\frametitle{Numeri binari frazionari: Fixed Point}
-  		Funzionano come i numeri interi, solo che la parte a destra del "punto binario" è formata
-  		da potenze frazionarie di due (i.e. potenze negative di 2).
+  \frametitle{Esponente e segno}
+  \framesubtitle{È stata dura, eh?}
   		
-  		\vspace{2em}
+  		Esponente:
+  		\vspace{1em}
+  		$$(a*b^{x}) * (c * b^{y}) = (a*c) * (b^{x} * b^{y}) = (a*c) * b^{x+y}$$
   		
-  	  Tutte le operazioni sono come quelle che abbiamo visto per gli interi (somma, sottrazione, moltiplicazione, shifting)
-  	  
-  	  \vspace{2em}
-  	  
-  	  \begin{block}{Utilizzo fixed Point}
-  	  		Questa rappresentazione dei numeri viene utilizzata su sistemi che non dispongono di una Floating
-  	  		Point Unit (FPU). Una volta erano molto più utilizzati. Tipo nella PS1, nel Saturn, nel GBA, nel
-  	  		Nintendo DS... NEL SATURN! Vuol dire che il Dreamcast aveva già una FPU (anzi 4)
-  	  \end{block}
+  		$$5_{10} + 6_{10} = 11_{10}$$
     
+    $$\text{Exp} = 11_{10} + 127_{10} = 138_{10} = 10001010_{2}$$
+   	Segno:
+   	\vspace{1em}
+    $$s = 0 \oplus 0 = 0$$
+    
+    \pause
+		Struttura finale del float:    
+    
+    \vspace{1em}
+   
+    $32.375_{10} * 76.15625_{10} = 01000101000110100001100011110000$
+  \end{frame}
+  \subsection{Altro esempio}
+  \begin{frame}
+  		\frametitle{Altro esempio}
+  		\framesubtitle{Partendo da due float}
+  		Float 1: $10011011001001101011100000000000 = -1.379065_{10}*10^{-22}$
+  		
+  		Float 2: $01101000100010010010000000000000 = 5.1804360_{10}*10^{24}$
+  		\vspace{2em}
+  		\pause
+  		\setlength{\tabcolsep}{2pt}
+		\begin{center}
+				\begin{tabular}{ccccccccccccccccccccccccc|c}
+				  &   &   &   &   &   &   &   &   &   &   &   & 1.& 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & x \\ 
+				  &   &   &   &   &   &   &   &   &   &   &   & 1.& 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 &   &   & = \\ 
+				\hline 
+		      &   &   &   &   &   &   &   &   &   & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &   &   &   \\ 
+          &   &   &   &   &   &   & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &   &   &   &   &   &   \\
+  	        &   &   &   & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &   &   &   &   &   &   &   &   &   \\
+  	      1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &   &   &   &   &   &   &   &   &   &   &   &   &   \\   
+				\hline 
+				  &   &   &   &   &   &   & 1 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &   &   &   \\ 
+				1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 1 &   &   &   &   &   &   &   &   &   \\ 
+				\hline 
+				1.& 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 1 &  &    &   \\ 
+				\end{tabular} 
+		\end{center}
   \end{frame}
   \subsection{Limiti}
 	\begin{frame}
-    \frametitle{Fixed Point}
-    \framesubtitle{Limiti}
-    \begin{itemize}
-			\item Pochi linguaggi hanno un supporto built-in dei Fixed (C e C++ ce l'hanno grazie a GCC)
-    		\item Possono rappresentare solo numeri nella forma $\frac{k}{2^x}$
-    		\item Tutti gli altri numeri razionali si possono rappresentare
-    			solo usando una serie di bit decimali periodica.
-    \end{itemize}
-    \vspace{1em}
-    $$\frac{1}{3}_{10} = 0.\overline{01}_{2}$$
-    $$\frac{1}{5}_{10} = 0.\overline{0011}_{2}$$
-    $$\frac{1}{10}_{10} = 0.0\overline{0011}_{2}$$
+    \frametitle{L'altro esempio}
+    \framesubtitle{Segno, Esponente e poi mettere tutto assieme}
+   		Exp 1: $00110110_{2} = 54$
+   		Exp 2: $11010001_{2} = 209$
+   		
+   		$\text{Exp} = (\text{Exp 1} - \text{Bias}) + (\text{exp 2} - \text{Bias}) + \text{Bias} = (\text{Exp 1} + \text{Exp 2}) - \text{Bias}$
+   		
+   		$\text{Exp} = 54 + 209 - 127 = 136 = 10001000_{2}$
+   		
+   		\vspace{2em}
+   		\pause
+   		
+   		Sign: $\text{Sign 1} \oplus \text{Sign 2} = 1 \oplus 0 = 1$
+   		
+   		\vspace{2em}
+   		\pause
+   		
+   		Risultato:
+   		\begin{columns}
+				\column{.7\textwidth}   			
+   			$$11000100001100101001101010011110 \simeq -714.4158_{10}$$
+   			\column{.3\textwidth}
+   			\pause
+   			\begin{center}
+		    		\includegraphics[width=.9\textwidth]{IMGs/Everything.jpg}
+		    \end{center}
+			\end{columns}  
   \end{frame}
-  \section{Floating Point}
- 	\begin{frame}
- 		\frametitle{I floating points: virgole instabili}
-    \framesubtitle{Intro}
-    \begin{center}
-    		\includegraphics[width=.8\textwidth]{IMGs/MGS-FP1.png}
-    \end{center}
-	\end{frame} 	 
-  
-  \subsection{I soliti casini}
+  \section{Intervallo}
 	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Ah, buttare via i soldi}
-	    È l'estate del 1994 ed il professor Nicely sta scrivendo un codice per contare
-	    i numeri primi, i numeri primi gemelli, le triplette e le quadruple fino a $6.4*10^{15}$.
+	    \frametitle{Danni? Danni.}
+	    \framesubtitle{Due errori piccoli non si annullano: ne fanno uno grosso.}
+	    25 febbraio 1991. Prima guerra del Golfo, codename \emph{Operation: Desert Storm}.
 	    
 			\vspace{2em}	    
 	    
-	    Questo programma ha girato per 13 anni su una ventina di PC in parallelo, però, prima
-	    di iniziare i lavori seri, ha deciso di fare dei test, calcolando valori nell'ordine
-	    di grandezza di $10^{13}$ e confrontandoli con dei risultati certificati, trovando delle
-	    discrepanze.
+	    A Dharan, in Arabia Saudita, c'è un accampamento americano protetto da una batteria \texttt{MIM-104} di
+	    missili Patriot, progettati specificatamente come missili Terra-Aria con funzione
+	    anti balistica.
 	    
-	  \end{frame}
-	  
-	  \begin{frame}
-	  		\frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Ah, buttare via i soldi, Cont.}
-	  	    
-	    Testò il software su due macchine differenti, un Intel P6 ed un 486DX-33\footnote{Hei,
-	    dovrei averne uno da qualche parte in camera!}, ed anche lì riscontrò risultati differenti
-	    con ordini d'errore troppo grossi per venir generati dall'arrotondamento.
+	    Quindi nessun problema, giusto?
 	    
-			\vspace{2em}	  	    
-	    
-	    Dopo di questo provò di tutto: errori introdotti dal compilatore, provò a disattivare le FPU.
-	    Controllò persino se non fosse il BUS PCI. Alla fine scoprì che il problema era in una serie
-	    di processori Intel (le P6), testandolo anche su delle macchine in esposizione in un negozio
-	    locale di informatica.
-	    
-	  \end{frame}
-	  
-	  \begin{frame}
-	  		\frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Ah, buttare via i soldi: Grand Finale}
-	  	    
-	    Com'è andata a finire? Il Professor Nicely ha completato la sua ricerca nel 2006, utilizzando
-	    486DX-33 ed altre macchine, cambiate nel tempo, mentre l'Intel, pensate un po', per un errore
-	    che capitava una volta ogni nove miliardi di divisioni floating, ma che è stato gonfiato su
-	    Internet (parliamo del 1994), ha perso una cosa come 450M\$ sostituendo gratis tutti i processori
-	    agli utenti che lo richiedevano.
-	    
-	  \end{frame}
-	  
-	  \begin{frame}
-	  		\frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Ah, buttare via i soldi: La scena dopo i titoli di coda}
-	  
-	  		\begin{center}
-	  		...
-	  		\end{center}
-	  		
-	  		\pause
-	    
-			\begin{center}
-	    		\includegraphics[width=.6\textwidth]{IMGs/Y2K.jpg}
-	    \end{center}	    
+	    \pause
 	    
 	    \begin{center}
-	    		Mi rendo conto solo ora che questa è forse la spesa più grossa per un problema
-	    		sovrastimato dopo i 300G\$ per lo Y2K.
-			\end{center}	    
+		    		\includegraphics[width=.2\textwidth]{IMGs/no.jpg}
+		    \end{center}
 	    
 	  \end{frame}
 	  
-  \subsection{Introduzione}
+	  \begin{frame}
+	  		\frametitle{LOL, arrotondare}
+	  	    
+	    Quel giorno uno Scud iraqeno se ne passa indisturbato oltre l'area di rilevamento del sistema
+	    e fa saltare in aria una caserma con 28 soldati e ne ferisce un centinaio.
+	    
+	    \vspace{2em}
+	    \pause
+	    
+	    Nuove tecnologie segrete degli stati cagnaglia?
+	    
+	    \pause
+	    
+	    Delle spie che avevano disabilitato i sistemi di sicurezza?
+	    
+	    \pause
+	    
+	    Botta di sfiga?
+	    
+	    \pause
+	    
+	    \vspace{2em}
+	    
+	    No, ovviamente!
+	    
+	    Anche quì ci finiamo di mezzo noi.
+	    
+	  \end{frame}
+	  
+	  \begin{frame}
+	  		\frametitle{LOL, arrotondare}
+	    \framesubtitle{Vi ricordate la parte sui Fixed Points?}
+	  	    
+	    Fondamentalmente il sistema automatico di controllo dei \texttt{MIM-104}, per tenere traccia
+	    del tempo, moltiplicava per 1/10 il tempo tracciato dall'orologio in tempo (che era in decimi).
+	    
+	    Per fare questo venivano utilizzati dei decimali in fixed points da 24 bits. Solo che, come ricorderete,
+	    le operazioni con frazioni che non sono somme di potenze di due vengono "arrotondate" per specifiche. Un
+	    bel modo per dire che non possiamo rappresentare questi numeri.
+	    
+	    $$0.10_{10} = 0.0001100110011001100110011001100\text{...}_{2}$$
+	    
+	    Noi, però, possiamo avvalerci solo di un numero finito di bit, quindi la rappresentazione a 24 bit sarà:
+	    
+	    $$0.00011001100110011001100_{2}$$
+	    
+	    Introducendo un errore, per ogni operazione, pari a:
+	    
+	    $$0.0000000000000000000000011001100\text{...}_{2} \simeq 0.000000095_{10}$$
+	  \end{frame}
+	  
+	  \begin{frame}
+	  		\frametitle{LOL, arrotondare}
+	    \framesubtitle{L'uptime mi uccide.}
+	  		
+	  		
+	    \begin{columns}
+				\column{.6\textwidth}	
+		  		Il sistema di controllo del \texttt{MIM-104} era acceso da oltre 100 ore.
+		  		
+		  		\vspace{2em}
+		  		
+		  		Ora, se fate due conti, questo vuol dire che l'errore accumulato era di
+		  		
+		  		$$100\text{h} * 60\frac{\text{m}}{\text{h}} * 60\frac{\text{s}}{\text{m}} * 10 * 0.000000095 = 0.342\text{s}$$
+	    	    
+	    	    \pause
+		    Nice. In .342s uno Scud si fa circa 700m. Questo basta per fare in modo che un
+				sistema non si accorga neanche della presenza del missile e non lo intercetti.
+				
+				youhadonejob.jpg
+				\column{.4\textwidth}
+				  \begin{center}
+			    		\includegraphics[width=.9\textwidth]{IMGs/Iaccidentally.png}
+			    \end{center}
+	    \end{columns}
+	    
+	  \end{frame}
+	  
+  \section{Float Operations - 2}
+  \subsection{Somma/Sottrazione}
   \begin{frame}
-    \frametitle{I floating points: virgole instabili}
-    \framesubtitle{Intro cont.}
-      IEEE Standard 745.
-      
+    \frametitle{Floating Point}
+    \framesubtitle{Somma}
+      Anche quì l'idea di base è abbastanza semplice:
+      $$(-1)^{s1} \text{ } M1 \text{ } 2^{Exp1} +_{f} (-1)^{s2} \text{ } M2 \text{ } 2^{Exp2} = (-1)^{s} \text{ } M \text{ } 2^{Exp}$$
+      Per semplicità, nei calcoli, assumiamo che $\text{Exp1} \geq \text{Exp2}$
       \vspace{2em}
       
-      È lo standard per la rappresentazione di numeri decimali con virgola mobile, ed è stato progettato
-      pensando alle proprietà matematiche:
-      
+      Avremo quindi:
       \begin{itemize}
-      		\item Ottimo comportamento in caso di arrotondamento, over/underflow
-      		\item Il problema è che è molto complicato da implementare a livello hardware
+      		\item Exp = Exp1
+      		\item S ed M saranno il risultato della somma (o sottrazione) dei due termini allineati
       \end{itemize}
       
-      \begin{block}{FPUs! :D}
-      		In questi giorni i processori più cacciati per fare calcoli floating sono le GPU:
-      		in pratica non si usano quasi gli integer per fare calcoli in 3D (da matrici di trasferimento
-      		3D-2D a computazione del colore ai motori fisici)
-      \end{block}
+      \vspace{2em}
+      M andrà comunque normalizzata:
+      \begin{itemize}
+      		\item Se M$>1$ allora dobbiamo shiftare a destra, aumentando Exp di 1
+      		\item Se M$<1$ allora dobbiamo shiftare a sinistra, diminuendo Exp di 1
+      		\item Settiamo overflow ed arrotondiamo se necessario.
+      \end{itemize}
+      
   \end{frame}
-  	\subsection{Rappresentazione}
+	\subsection{Esempio Somma}
   \begin{frame}
-    \frametitle{Floating Point: Virgole instabili}
-    \framesubtitle{Rappresentazione dei numeri}
-    I numeri floating points sono una rappresentazione in binario della notazione scientifica:
-    $$(-1)^{s} * M * 2^{Exp}$$
-    Dove:
-    \begin{itemize}
-    		\item s determina il segno del numero
-    		\item M è il valore, normalmente $1.0 \leq \text{M} < 2.0$
-    		\item Exp è l'esponente intero di 2 per il quale bisogna moltiplicare il tutto.
-    \end{itemize}
-    In forma binaria tutto questo si trasforma in:
-    \begin{itemize}
-    		\item 1 singolo bit s (0 positivo, 1 negativo)
-    		\item una serie di bit e che indicano l'esponente
-    		\item una serie di bit m che indicano la mantissa
-    \end{itemize}
-    E siccome c'è della simpatia nell'aria né e né m sono uguali ad M od Exp.
+    \frametitle{Floating Point}
+    \framesubtitle{Esempio di somma}
+    Float 1: $01000011101110100100000000000000 = 372.5_{2}$
+    
+    Float 2: $01000010101111101100000000000000 = 95.375_{2}$
+    
+    \pause
+    \vspace{2em}
+    
+    Exp = Max(Exp1, Exp2) = Exp1 = 8
+    
+    M2 = $1.011111011_{2} * 2^{6} = 0.01011111011_{2} * 2^{8}$
+    \vspace{1em}
+    
+    \setlength{\tabcolsep}{2pt}
+    \begin{center}
+    		\begin{tabular}{cccccccccccc|c}
+    		1. & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 1 &   &   & + \\ 
+    		0. & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & = \\ 
+    		\hline 
+    		1. & 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 1 & 1 &   \\ 
+    		\end{tabular} 
+    \end{center}
+    
+    \pause 
+    \vspace{1em}
+    Risultato:
+    $$01000011111010011111000000000000 = 467.875_{10}$$
   \end{frame}
-   
-	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Dimensioni delle componenti}
-			Single:
-			
-			\begin{center}
-				\includegraphics[width=.8\textwidth]{IMGs/Single.png}
-			\end{center}
-			\vspace{1em}
-			Double:
-			
-			\begin{center}
-				\includegraphics[width=.8\textwidth]{IMGs/Double.png}
-			\end{center}
-			\vspace{1em}
-			Quad:
-			
-			\begin{center}
-				\includegraphics[width=.8\textwidth]{IMGs/Quad.png}
-			\end{center}
-	  \end{frame}
-	  \subsection{Valori Normalizzati}
-	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Valori normalizzati}
-	    Quando si ha $\text{e} \neq 0\text{...}0$ o $\text{e} \neq 1\text{...}1$ allora si ha una
-	    versione normalizzata del numero in virgola mobile, ovvero:
-	    
-	    \begin{itemize}
-	      \item Esponente (Exp): Exp = e - Bias
-	      		\begin{itemize}
-	      			\item Il Bias è pari a $2^{k-1} - 1$, dove k è il numero di bit dell'esponente.
-	      			\item Avremmo così un range di esponenti di -126...127 per single, -1022...1023 per i double e
-	      				-16383...16384 per i quad.
-	      		\end{itemize}
-	      \item Valore (M): $1.m_{k}m_{k-1}...m_{1}$
-	      		\begin{itemize}
-	      			\item Abbiamo k bit + 1 per rappresentare il valore, grazie al \emph{1.}
-	      			\item Il minimo è 1.0, dato da $\text{m} = 0\text{...}0$
-	      			\item Il massimo è 2.0 - $\epsilon$, dato da $\text{m} = 1\text{...}1$\footnote{$\epsilon$ è un valore
-	      				piccolo a scelta. In pratica il valore M potrà arrivare a valere quasi 2, non arrivandoci mai.}
-	      		\end{itemize}
-	    \end{itemize}
-	  \end{frame}
-	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Valori normalizzati: Esempio}
-	    		$$1337.0_{10} = ?$$
-	    		\vspace{1em}
-	    		\pause
-	    		$$1337.0_{10} = 10100111001_{2}$$
-	    		Normalizziamo la mantissa: $10100111001_{2} = 1.0100111001_{2}*2^{11}$
-	    	  
-	    	  Mantissa: $\text{m} = 01001110010000000000000$
-	    	  
-	    	  Esponente:
-	    	  \begin{itemize}
-	    	  		\item Exp = 10
-	    	  		\item Bias = 127
-	    	  		\item e = Exp + Bias = 127 + 10 = 137 = $10001001_{2}$
-	    	  \end{itemize}
-	    	  
-	    	  \vspace{1em}
-	    	  \pause
-	    	  \begin{center}
-					\includegraphics[width=.8\textwidth]{IMGs/SingleExample.png}
-				\end{center}
-	  \end{frame}
-  \subsection{Valori Denormalizzati}
-	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Valori denormalizzati}
-	    Quando si ha $\text{e} = 0\text{...}0$ allora stiamo lavorando con una versione
-	    denormalizzata del numero in virgola mobile:
-	    
-	    \begin{itemize}
-	      \item Esponente (Exp): Exp = -Bias + 1
-	      \item Valore (M): $0.m_{k}m_{k-1}...m_{1}$, invece che $1.m_{k}m_{k-1}...m_{1}$      
-	        \begin{itemize}
-	      			\item Con m = 0...0, allora il float vale 0.\footnote{Così, però, avremo $+0$ e $-0$. Come mai?}
-	      			\item Con $\text{m} \neq 0\text{...}0$ avremmo numeri molto piccoli vicini a 0, ma perdiamo precisione.
-	      		\end{itemize}
-	    \end{itemize}
-	  \end{frame}
-	  \subsection{Casi speciali}
-	  \begin{frame}
-	    \frametitle{Floating Point: Virgole instabili}
-	    \framesubtitle{Casi speciali}
-	    Per indicare che qualcosa è andato storto l'esponente viene settato a $\text{e} = 1\text{...}1$
-	    
-	    \begin{itemize}
-	      \item $m = 0\text{...}0$
-	      		\begin{itemize}
-	      			\item Rappresenta $\infty$
-	      			\item Può essere negativo o positivo
-	      			\item Indica che c'è stato un overflow\footnote{Avete diviso per 0, sì?}
-	      		\end{itemize}
-	      	\item $m \neq 0\text{...}0$
-	      		\begin{itemize}
-	      			\item Rappresenta NaN
-	      			\item Viene utilizzato quando non si può determinare il risultato di un'operazione, tipo $\sqrt{-1}$\footnote{per
-	      				questo dovete utilizzare una libreria per i complessi} o $\infty * 0$
-	      		\end{itemize}
-	    \end{itemize}
-	  \end{frame}
+  \subsection{Esempio Sottrazione}
+  \begin{frame}
+  		\frametitle{Floating Point}
+  		\framesubtitle{Esempio di sottrazione}
+  \end{frame}
+  \subsection{Divisione}
+  \begin{frame}
+  		\frametitle{Floating Point}
+  		\framesubtitle{Divisione}
+  		Lasciata per ultima perché io odio la divisione (E poi saltano in aria caserme).
+  		
+  		\vspace{2em}
+  		\pause
+  		
+  		Voi non la odiavate alle ele... Med... Super... Vabbeh, quando si fa?
+  		
+  		\vspace{2em}
+  		\pause
+  		
+  		È molto simile alla moltiplicazione, cambiano solo due cose:
+  		\begin{itemize}
+  			\item Fare la divisione invece che il prodotto tra le mantisse
+  			\item Exp, alla fine, sarà (Exp1 - Exp 2) + Bias\footnote{Come mai?}
+  		\end{itemize}
+  \end{frame}
+  \section{Float vs. C}
+  \begin{frame}
+  		\frametitle{I float in C}
+  \end{frame}
 % etc
 \end{document}
