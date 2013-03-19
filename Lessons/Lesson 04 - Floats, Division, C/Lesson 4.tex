@@ -95,8 +95,8 @@
 	  		\item Se l'esponente va oltre il massimo andiamo in \emph{overflow}
 	  		\item Arrotondiamo il numero in modo che sia contenuto nella mantissa
 	  \end{itemize}
-
-  \end{frame}
+  \end{frame}	  
+  
   \begin{frame}
     \frametitle{Floating Point}
     \framesubtitle{Divisione tra interi}
@@ -113,6 +113,7 @@
 		è o non è contenuto nelle cifre del dividendo che consideriamo ad ogni passaggio.
   \end{frame}
   
+  	\subsection{Esempio di divisione base 10}
   \begin{frame}
 	    \frametitle{Floating Point}
 	    \framesubtitle{Esempio di divisione base 10}
@@ -140,6 +141,7 @@
 	    $$33_{10} / 6_{10} = 5.5_{10}$$
 	\end{frame}
 
+	\subsection{Esempio di divisione base 2}
   \begin{frame}
 	    \frametitle{Floating Point}
 	    \framesubtitle{Esempio di divisione base 2}
@@ -173,59 +175,65 @@
 	\end{frame}
 
 
-	\subsection{Esempio Moltiplicazione}
+	\subsection{Esempio di divisione float}
   \begin{frame}
     \frametitle{Floating Point}
-    \framesubtitle{Esempio di moltiplicazione}
-    $$32.375_{10} * 76.15625_{10} = ?$$
+    \framesubtitle{Esempio di divisione float}
+    
+		$$330_{10} / -0.625_{10} = ?$$
+		
+		\pause
+		
+		$330_{10} = 01000011101001010000000000000000$
+		
+		$-0.625_{10} = 10111111001000000000000000000000$
+		
 		\begin{center}
-			Spoilers: sarà lunghetta
-		\end{center}		    
-    \vspace{1em}
-    Passaggi:
-    \begin{itemize}
-    		\item Convertire i numeri base 10 in numeri base 2
-    		\item Normalizzarli (i.e. $1.mmmm$ moltiplicati per $2^{x}$)
-    		\item Moltiplicare i due numeri ignorando l'esponente (Il problema è sempre moltiplicare)
-    		\item Normalizzare il risultato \& arrotondare/overflow
-    		\item Calcolare l'esponente finale
-    		\item Calcolare il segno
-    		\item Mettere tutto assieme
-    \end{itemize}
-    Uff.
+    		\setlength{\tabcolsep}{2pt}
+    		\begin{tabular}{ccc|cccccccc}
+    				&   &   & 1.& 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+    		  \hline    			
+    			1.& 0 & 1 & 1.& 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+    			  &   &   & 1 & 0 & 1 &   &   &   &   &   \\
+    			\hline
+    			  &   &   &   &   & 0 & 0 & 0 & 1 & 0 & 1 \\
+    			  &   &   &   &   &   &   &   & 1 & 0 & 1 \\
+    			\hline
+    			  &   &   &   &   &   &   &   &   &   & - \\
+    		\end{tabular}
+	  \end{center}		
+		
+		$$\text{M} = 00001000000000000000000$$ 
+    
   \end{frame} 
   
-  \subsubsection{Moltiplicazione dei due numeri}
   \begin{frame}
-  		\frametitle{Ok, let's rock!}
+  	  \frametitle{Floating Point}
+    \framesubtitle{Esempio di divisione float, cont.}
   	
-    $32.375_{10} = 100000.011_{2} * 2^{0} = 1.00000011_{2} * 2^{5}$
+    $$\text{Sign} = 0 \oplus 1 = 1$$
     
-    $76.15625_{10} = 1001100.00101_{2} * 2^{0} = 1.00110000101_{2} * 2^{6}$
-    	
-    	\pause
+    $$\text{Exp} = 135 - 126 + 127 = 136_{10} = 10001000_{2}$$
     
+    \pause
+    \vspace{2em}
+    
+    $$11000100000001000000000000000000 = -528_{10}$$
+  		
+  \end{frame}
+  \section{I Float e C/C++}
+  \subsection{Le basi}
+  \begin{frame}
+  	  \frametitle{Floats vs. C/C++}
+    \framesubtitle{I float nel C/C++}
+  	
+    Presenti due versioni del floating point:
+    \begin{itemize}
+    		\item \texttt{float}, 32-bit
+    		\item \texttt{double}, 64-bit
+    \end{itemize}
+        
     \vspace{1em}
-		
-		\setlength{\tabcolsep}{2pt}
-		\begin{center}
-				\begin{tabular}{ccccccccccccccccccccccc|c}
-				  &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & x \\ 
-			    &   &   &   &   &   &   &   &   &   &   & 1. & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &   &   &   & = \\ 
-				\hline 
-				  &   &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &  \\ 
-				  &   &   &   &   &   &   & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &   &  \\ 
-				1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &   &   &   &   &   &   &   &   &   &   &   &  \\ 
-				\hline 
-				  &   &   &   &   &   &   & 1 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &   &   &   &  \\ 
-				\hline 
-				1. & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &   &   &   &  \\ 
-				\end{tabular} 
-		\end{center}
-		
-		\vspace{2em}
-    
-		$$\text{M} = 1.0011010000110001111_{2}$$
   		
   \end{frame}
   \subsubsection{Esponente e segno}
