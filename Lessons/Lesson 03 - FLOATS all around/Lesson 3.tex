@@ -1,6 +1,11 @@
 \documentclass{beamer}
-\usetheme{AnnArbor}
-\usecolortheme{beaver}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+
+% Nouvelle is a green and red alternative to the chameleon color theme.
+\usecolortheme{nouvelle}
 \geometry{paperwidth=140mm,paperheight=105mm}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -159,8 +164,8 @@
 	    		\begin{tabular}{ccl}
 	    		$10.01101110_{2}$ & $10.011_{2}$ & [Arrotondato per difetto] \\ 
 	    		$10.01110101_{2}$ & $10.100_{2}$ & [Arrotondato per eccesso] \\ 
-	    		$10.01110000_{2}$ & $10.100_{2}$ & [A metà, pari, arrotondato per difetto] \\ 
-	    		$10.01010000_{2}$ & $10.010_{2}$ & [A metà, dispari, arrotondato per eccesso] \\ 
+	    		$10.01010000_{2}$ & $10.010_{2}$ & [A metà, pari, arrotondato per difetto] \\ 
+	    		$10.01110000_{2}$ & $10.100_{2}$ & [A metà, dispari, arrotondato per eccesso] \\ 
 	    		\end{tabular} 
 	    \end{center}
   \end{frame}
