@@ -1,0 +1,75 @@
+\usepackage{graphicx}
+
+% args: image path
+% caption
+% width
+% label
+\newcommand{\image}[4]{%
+    \begin{figure}[hbt]%
+    \centering%
+    \includegraphics[width=#3\columnwidth]{#1}%
+    \caption{\emph{#2}}%
+    \label{#4}%
+    \end{figure}%
+}
+
+% args: image path
+% caption
+% label
+\newcommand{\imageFullWidth}[3]{\image{#1}{#2}{0.8}{#3}}
+\newcommand{\keyword}[1]{{\color{myorange}#1}}
+
+
+\usepackage{fancyvrb}
+\usepackage[svgnames,dvipsnames]{xcolor}
+\definecolor{felinesrcbgcolor}{rgb}{1,1,0.85}
+\definecolor{felinesrcbgcolor}{rgb}{0.94,0.97,1}
+\definecolor{felineframe}{rgb}{0.79,0.88,1}
+\definecolor{myorange}{rgb}{1,0.375,0}
+\fvset{frame=lines,
+  framesep=3mm,
+  framerule=3pt,
+  fontsize=\small,
+  rulecolor=\color{myorange},
+  formatcom=\color{DarkGreen},
+}
+\lstset{language=[ANSI]C, classoffset=0,
+  morekeywords={uint32_t}, keywordstyle=\color{myorange}\textbf}
+
+\hypersetup{
+	urlcolor=myorange
+}
+
+\definecolor{nicered}{rgb}{.647,.129,.149}
+\makeatletter
+\newlength\dlf@normtxtw
+\setlength\dlf@normtxtw{\textwidth}
+\def\myhelvetfont{\def\sfdefault{mdput}}
+\newsavebox{\feline@chapter}
+\newcommand\feline@chapter@marker[1][4cm]{%
+	\sbox\feline@chapter{%
+	\resizebox{!}{#1}{\fboxsep=1pt%
+	\colorbox{nicered}{\color{white}\bfseries\sffamily\thechapter}%
+	}}%
+	\rotatebox{90}{%
+	\resizebox{%
+	\heightof{\usebox{\feline@chapter}}+\depthof{\usebox{\feline@chapter}}}%
+	{!}{\scshape\so\@chapapp}}\quad%
+	\raisebox{\depthof{\usebox{\feline@chapter}}}{\usebox{\feline@chapter}}%
+}
+\newcommand\feline@chm[1][4cm]{%
+\sbox\feline@chapter{\feline@chapter@marker[#1]}%
+\makebox[0pt][l]{% aka \rlap
+\makebox[1cm][r]{\usebox\feline@chapter}%
+}}
+\makechapterstyle{daleif1}{
+	\renewcommand\chapnamefont{\normalfont\Large\scshape\raggedleft\so}
+	\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{nicered}}
+	\renewcommand\chapternamenum{}
+	\renewcommand\printchaptername{}
+	\renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
+	\renewcommand\afterchapternum{\par\vskip\midchapskip}
+	\renewcommand\printchaptertitle[1]{\chaptitlefont\raggedleft ##1\par}
+}
+\makeatother
+\chapterstyle{daleif1}

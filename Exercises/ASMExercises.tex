@@ -1,0 +1,208 @@
+\documentclass[a4paper]{memoir}
+
+\usepackage[colorlinks]{hyperref}
+
+\title{Architettura degli Elaboratori \\ Assembly Exercises \\ A.A. 2012/2013}
+\author{Michele ``Jazzinghen'' Bianchi \\ eMail: \url{jazzinghen@gmail.com} \\%
+	Website \url{http://disi.unitn.it/~bianchi/}}
+
+\usepackage{color,calc,graphicx,soul,fourier}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{listings}
+
+
+
+\input{OtherStuff/Settings.tex}
+
+\begin{document}
+
+\maketitle
+
+\chapter*{Introduzione}
+
+  Ho messo in questo documento tutti gli esercizi di assembly usati negli anni passati che sono riuscito
+  a recuperare anche grazie all'aiuto di Luigi Palopoli e Federico Moro.
+  
+  Ho fatto anche un capitolo che contiene dei suggerimenti per la scrittura degli esercizi (tutti i suggerimenti
+  che mi sono venuti in mente, in realtà) ed uno con UNA delle possibili soluzioni per esercizio.
+  
+  Ho convertito alcune parti degli esercizi, usando tipi standardizzati (e.g. {\color{myorange}\texttt{int32\_t}}
+  invece che {\color{myorange}\texttt{int}}). Non cambia
+  molto, rende solo il tutto più formale. Scusate, pippe da scrittore di codice embedded XD
+  
+  Come al solito, se avete domande sugli esercizi mandatemi due righe, che vediamo di risolvere.
+  
+\chapter{Esercizi degli anni passati}
+	
+	Come spiegato in classe io vi consiglierei di seguire questi tre passaggi per risolvere gli esercizi di scrittura
+	di programmi in Assembly:
+	
+	\begin{itemize}
+    \item Scrivere il programma in C, così da avere bene in mente le variabili necessarie, di che tipo sono e così via
+    \item Trasformare il programma in una versione che usa solo GOTO\footnote{Che Sebastiani abbia pietà di me}, così da sapere
+      quali e quante labels utilizzare e che controlli fare
+    \item Trasformare il codice da C ad Assembly
+	\end{itemize}
+	
+	Ovviamente non vi è richiesto all'esame di fare tutto questo, potete anche scrivere il codice direttamente in Assembly,
+	però vi assicuro che rischiate errori.
+	
+	Guardate me. In classe faccio errori anche seguendo tutti i passaggi.
+	
+	\section{Giugno 2011}
+    Ah, un classico:
+    
+    Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t fib (uint32_t n)
+    \end{lstlisting}
+    
+    Che restituisce l'\keyword{n}esimo numero della serie di Fibonacci.
+    
+    La funzione dev'essere scritta in forma ricorsiva. Visualizzate inoltre la situazione dello stack (evidenziando i
+    differenti stack frames) nel momento di massima espansione della chiamata \keyword{fib(3)}.
+    
+    \subsection{Bonus}
+    
+      Scrivete la versione iterativa e spiegate in cosa è migliore rispetto a quella ricorsiva.
+      
+	\section{Luglio 2011}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t is_prime (uint32_t n)
+    \end{lstlisting}
+    
+    Che restituisce 1 se il \keyword{n} è primo, 0 altrimenti.
+    
+    \subsection{Bonus}
+    
+      Scrivete la funzione in forma ricorsiva. Potete aggiungere un parametro alla funzione.
+      
+  \section{Settembre 2011}
+    Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t count_even (const int32_t * a, uint32_t l)
+    \end{lstlisting}
+    
+    Che restituisce il conteggio dei numeri primi contenuti nell'array \keyword{a}, di lunghezza \keyword{l}.\footnote{\keyword{a}
+    è dichiarato come \keyword{const uint32\_t}. Questo significa solo che la funzione NON va a modificare i contenuti dell'array}
+    
+    \subsection{Bonus}
+    
+      Utilizzate una sola operazione per capire se il numero è pari.
+      
+	\section{Giugno 2012}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t pal_check (const char * s)
+    \end{lstlisting}
+	
+	  Che restituisce 1 se la stringa \keyword{s} è palindoma\footnote{Ovvero è uguale leggerla da destra a sinistra o da
+	  sinistra a destra (e.g. Otto, Radar, Nisioisin)}, 0 altrimenti.
+	  
+	\section{Luglio 2012}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t is_suffix (const char * s, const char * t)
+    \end{lstlisting}
+    
+    Che restituisce 1 se la stringa \keyword{t} è un suffisso della stringa \keyword{s}, 0 altrimenti.
+    
+    Assumete, per semplicità, che \keyword{s} è sempre più lungo di \keyword{t} e che entrambe le stringhe contengano
+    almeno un carattere.
+    
+    \subsection{Bonus}
+      
+      Non assumete un bel nulla sulle stringhe passate alla funzione.
+      
+	\section{Settembre 2012}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+void invert (const int32_t * s, int32_t * d, uint32_t c)
+    \end{lstlisting}
+    
+    Che copi l'array \keyword{s} di lunghezza \keyword{c} in ordine invertito in \keyword{d}.
+    
+    Assumete (anche perché non possiamo fare altrimenti, LOL) che l'array \keyword{d} sia di lunghezza corretta.
+    
+    \subsection{Bonus}
+    
+      Ok, diciamo che abbiamo scritto una libreria che utilizza un formato per gli array numerici in modo
+      che siano simili alle stringhe, ovvero che sono terminati da un numero specifico (sceglietelo voi: può essere 42, 1337,
+      214134). Riscrivete la funzione:
+      
+      \begin{lstlisting}
+uint32_t invert (const int32_t * s, int32_t * d, uint32_t c)
+      \end{lstlisting}
+      
+      Tale che restituisca 1 se riusciamo a fare la copia, 0 altrimenti (i.e. se usciamo dall'array prima di aver finito
+      di invertire l'array.
+      
+	\section{Gennaio 2013}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+uint32_t str_cmp (const char * a, const char * b)
+    \end{lstlisting}
+    
+    Che confronti le stringhe \keyword{a} e \keyword{b} e che restituisca il numero di caratteri uguali nella stessa posizione.
+    Hint: '\\0' non è proprio un carattere simile :D    
+    
+    Ad esempio:
+    
+    \begin{tabular}{|c|c|c|c|}
+    \hline 
+    \keyword{a} & \texttt{abcde} & \texttt{safvbe} & \texttt{oihfcapinwq} \\ 
+    \keyword{b} & \texttt{abbfe} & \texttt{tafede} & \texttt{maefpasidwc} \\ 
+    \hline 
+    risultato & 2 & 3 & 4 \\ 
+    \hline 
+    \end{tabular}
+    
+    Assumete che le stringhe siano lunghe uguali.
+    
+    \subsection{Bonus}
+    
+      Al solito non assumete che siano uguali. Restituite il conteggio dei caratteri uguali finchè potete.
+      OPPURE!
+      
+      Scrivere in codice assembly la funzione\footnote{Spoilers: Copia Incolla}
+    
+    \begin{lstlisting}
+int32_t str_cmp (const char * a, const char * b)
+    \end{lstlisting}
+    
+      Che si comporti come prima, ma restituisca -1 se incontra qualche problema.
+      
+	\section{Febbraio 2013}
+	
+	  Scrivere in codice assembly la funzione
+    
+    \begin{lstlisting}
+int32_t bounded_sum (const int32_t * a, uint32_t l, int32_t t)
+    \end{lstlisting}
+    
+    Che restituisca la somma di tutti i numeri dispari minori di \keyword{t} contenuti nell'array \keyword{a} di lunghezza
+    \keyword{l}.
+    
+%\chapter{Hints}
+
+	%Arriveranno, non vi preoccupate.
+
+%\chapter{Soluzioni}
+
+  %Anche queste, solo che devo scrivermele giù, sorry.
+\end{document}
